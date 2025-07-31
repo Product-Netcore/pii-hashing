@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Edit, Plus, ExternalLink } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Edit, Plus, ExternalLink, ChevronDown } from "lucide-react";
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
   peId: "58498958949549954"
@@ -25,6 +26,22 @@ export function SettingsPage() {
   
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
   const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond"];
+
+  const handleEnterpriseToggle = (enterprise: string) => {
+    setSelectedEnterprises(prev => 
+      prev.includes(enterprise) 
+        ? prev.filter(e => e !== enterprise)
+        : [...prev, enterprise]
+    );
+  };
+
+  const handleFeedToggle = (feed: string) => {
+    setSelectedFeeds(prev => 
+      prev.includes(feed) 
+        ? prev.filter(f => f !== feed)
+        : [...prev, feed]
+    );
+  };
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
@@ -206,34 +223,70 @@ export function SettingsPage() {
               <div className="space-y-4">
                 <div className="text-left">
                   <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select enterprises..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {enterprises.map((enterprise) => (
-                        <SelectItem key={enterprise} value={enterprise}>
-                          {enterprise}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedEnterprises.length > 0 
+                          ? `${selectedEnterprises.length} enterprise(s) selected`
+                          : "Select enterprises..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-2">
+                        {enterprises.map((enterprise) => (
+                          <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`enterprise-${enterprise}`}
+                              checked={selectedEnterprises.includes(enterprise)}
+                              onCheckedChange={() => handleEnterpriseToggle(enterprise)}
+                            />
+                            <label 
+                              htmlFor={`enterprise-${enterprise}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {enterprise}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 <div className="text-left">
                   <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select feeds..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {feeds.map((feed) => (
-                        <SelectItem key={feed} value={feed}>
-                          {feed}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedFeeds.length > 0 
+                          ? `${selectedFeeds.length} feed(s) selected`
+                          : "Select feeds..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-2">
+                        {feeds.map((feed) => (
+                          <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`feed-${feed}`}
+                              checked={selectedFeeds.includes(feed)}
+                              onCheckedChange={() => handleFeedToggle(feed)}
+                            />
+                            <label 
+                              htmlFor={`feed-${feed}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {feed}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             )}
