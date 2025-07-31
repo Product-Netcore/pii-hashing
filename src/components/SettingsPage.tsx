@@ -152,108 +152,112 @@ export function SettingsPage() {
           {/* PII Hashing Section */}
           <div className="mt-12 space-y-6">
             {/* PII Hashing - Mobile Number */}
-            <div className="flex items-center justify-between p-6 border border-border rounded-lg">
-              <div className="flex-1">
-                <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {isPIIHashingEnabled 
-                    ? "PII Hashing is enabled for all Enterprises on the panel."
-                    : "Enhanced protection of customer privacy with hashing customer's numbers."
-                  }
-                </p>
-                {isPIIHashingEnabled && (
-                  <div className="mt-3">
-                    <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {enableAllEnterprises ? (
-                        <Badge variant="default" className="text-xs">All Enterprises</Badge>
-                      ) : (
-                        <>
-                          {selectedEnterprises.map(enterprise => (
-                            <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
-                          ))}
-                          {selectedFeeds.map(feed => (
-                            <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                          ))}
-                        </>
-                      )}
+            <div className="p-6 border border-border rounded-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {isPIIHashingEnabled 
+                      ? "PII Hashing is enabled for all Enterprises on the panel."
+                      : "Enhanced protection of customer privacy with hashing customer's numbers."
+                    }
+                  </p>
+                  {isPIIHashingEnabled && (
+                    <div className="mt-3">
+                      <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {enableAllEnterprises ? (
+                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                        ) : (
+                          <>
+                            {selectedEnterprises.map(enterprise => (
+                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                            ))}
+                            {selectedFeeds.map(feed => (
+                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                            ))}
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex gap-2">
-                {isPIIHashingEnabled && (
+                  )}
+                </div>
+                <div className="flex gap-2 ml-4">
+                  {isPIIHashingEnabled && (
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                      onClick={() => setShowPIIDialog(true)}
+                    >
+                      <Edit className="mr-1 h-3 w-3" />
+                      EDIT
+                    </Button>
+                  )}
                   <Button 
                     size="sm" 
-                    variant="outline"
-                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
-                    onClick={() => setShowPIIDialog(true)}
+                    className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700" 
+                    variant={isPIIHashingEnabled ? "default" : "default"}
+                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
                   >
-                    <Edit className="mr-1 h-3 w-3" />
-                    EDIT
+                    {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
                   </Button>
-                )}
-                <Button 
-                  size="sm" 
-                  className="min-w-[80px]" 
-                  variant={isPIIHashingEnabled ? "destructive" : "default"}
-                  onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
-                >
-                  {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
-                </Button>
+                </div>
               </div>
             </div>
 
             {/* PII Hashing - Message Content */}
-            <div className="flex items-center justify-between p-6 border border-border rounded-lg">
-              <div className="flex-1">
-                <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {isContentStorageEnabled 
-                    ? "Message content storage is disabled for all Enterprises on the panel."
-                    : "Enhanced protection of customer privacy with disabling storage of user wise message content."
-                  }
-                </p>
-                {isContentStorageEnabled && (
-                  <div className="mt-3">
-                    <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {enableAllEnterprisesContent ? (
-                        <Badge variant="default" className="text-xs bg-blue-500 text-white">All Enterprises</Badge>
-                      ) : (
-                        <>
-                          {selectedEnterprisesContent.map(enterprise => (
-                            <Badge key={enterprise} variant="secondary" className="text-xs bg-blue-500 text-white">{enterprise}</Badge>
-                          ))}
-                          {selectedFeedsContent.map(feed => (
-                            <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
-                          ))}
-                        </>
-                      )}
+            <div className="p-6 border border-border rounded-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {isContentStorageEnabled 
+                      ? "Message content storage is disabled for all Enterprises on the panel."
+                      : "Enhanced protection of customer privacy with disabling storage of user wise message content."
+                    }
+                  </p>
+                  {isContentStorageEnabled && (
+                    <div className="mt-3">
+                      <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {enableAllEnterprisesContent ? (
+                          <Badge variant="default" className="text-xs bg-blue-500 text-white">All Enterprises</Badge>
+                        ) : (
+                          <>
+                            {selectedEnterprisesContent.map(enterprise => (
+                              <Badge key={enterprise} variant="secondary" className="text-xs bg-blue-500 text-white">{enterprise}</Badge>
+                            ))}
+                            {selectedFeedsContent.map(feed => (
+                              <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
+                            ))}
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex gap-2">
-                {isContentStorageEnabled && (
+                  )}
+                </div>
+                <div className="flex gap-2 ml-4">
+                  {isContentStorageEnabled && (
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                      onClick={() => setShowContentDialog(true)}
+                    >
+                      <Edit className="mr-1 h-3 w-3" />
+                      EDIT
+                    </Button>
+                  )}
                   <Button 
                     size="sm" 
-                    variant="outline"
-                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
-                    onClick={() => setShowContentDialog(true)}
+                    className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700"
+                    variant={isContentStorageEnabled ? "default" : "default"}
+                    onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
                   >
-                    <Edit className="mr-1 h-3 w-3" />
-                    EDIT
+                    {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
                   </Button>
-                )}
-                <Button 
-                  size="sm" 
-                  className="min-w-[80px]"
-                  variant={isContentStorageEnabled ? "destructive" : "default"}
-                  onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
-                >
-                  {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
-                </Button>
+                </div>
               </div>
             </div>
           </div>
