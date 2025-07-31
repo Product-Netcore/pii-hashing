@@ -37,7 +37,7 @@ export function SettingsPage() {
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
-  const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond"];
+  const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED"];
 
   const handleEnterpriseToggle = (enterprise: string) => {
     setSelectedEnterprises(prev => 
