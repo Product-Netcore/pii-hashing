@@ -206,7 +206,7 @@ export function SettingsPage() {
                   <Button 
                     size="sm" 
                     variant="outline"
-                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50" 
+                    className={`min-w-[80px] ${isPIIHashingEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
                     onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
                   >
                     {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
@@ -270,7 +270,7 @@ export function SettingsPage() {
                   <Button 
                     size="sm" 
                     variant="outline"
-                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                    className={`min-w-[80px] ${isContentStorageEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
                     onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
                   >
                     {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
