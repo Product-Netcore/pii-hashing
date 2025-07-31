@@ -109,7 +109,36 @@ export function SettingsPage() {
                 <Plus className="mr-2 h-4 w-4" />
                 ADD NEW PE ID
               </Button>
+          </div>
+
+          {/* PII Hashing Section */}
+          <div className="mt-12 space-y-6">
+            {/* PII Hashing - Mobile Number */}
+            <div className="flex items-center justify-between p-6 border border-border rounded-lg">
+              <div>
+                <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
+                <p className="text-sm text-muted-foreground">
+                  Enhanced protection of customer privacy with hashing customer's numbers.
+                </p>
+              </div>
+              <Button size="sm" className="min-w-[80px]">
+                ENABLE
+              </Button>
             </div>
+
+            {/* PII Hashing - Message Content */}
+            <div className="flex items-center justify-between p-6 border border-border rounded-lg">
+              <div>
+                <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Message Content</h3>
+                <p className="text-sm text-muted-foreground">
+                  Enhanced protection of customer privacy with hashing user wise message content.
+                </p>
+              </div>
+              <Button size="sm" className="min-w-[80px]">
+                ENABLE
+              </Button>
+            </div>
+          </div>
           </div>
 
           {/* User Management Section */}
