@@ -162,22 +162,13 @@ export function SettingsPage() {
                       : "Enhanced protection of customer privacy with hashing customer's numbers."
                     }
                   </p>
-                  {isPIIHashingEnabled && (
+                  {isPIIHashingEnabled && !enableAllEnterprises && (
                     <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {enableAllEnterprises ? (
-                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
-                        ) : (
-                          <>
-                            {selectedEnterprises.map(enterprise => (
-                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
-                            ))}
-                            {selectedFeeds.map(feed => (
-                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                            ))}
-                          </>
-                        )}
+                        {selectedFeeds.map(feed => (
+                          <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -217,22 +208,13 @@ export function SettingsPage() {
                       : "Enhanced protection of customer privacy with disabling storage of user wise message content."
                     }
                   </p>
-                  {isContentStorageEnabled && (
+                  {isContentStorageEnabled && !enableAllEnterprisesContent && (
                     <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {enableAllEnterprisesContent ? (
-                          <Badge variant="default" className="text-xs bg-blue-500 text-white">All Enterprises</Badge>
-                        ) : (
-                          <>
-                            {selectedEnterprisesContent.map(enterprise => (
-                              <Badge key={enterprise} variant="secondary" className="text-xs bg-blue-500 text-white">{enterprise}</Badge>
-                            ))}
-                            {selectedFeedsContent.map(feed => (
-                              <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
-                            ))}
-                          </>
-                        )}
+                        {selectedFeedsContent.map(feed => (
+                          <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
+                        ))}
                       </div>
                     </div>
                   )}
