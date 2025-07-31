@@ -206,14 +206,14 @@ export function SettingsPage() {
                     <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
                     <div className="flex flex-wrap gap-2">
                       {enableAllEnterprisesContent ? (
-                        <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                        <Badge variant="default" className="text-xs bg-blue-500 text-white">All Enterprises</Badge>
                       ) : (
                         <>
                           {selectedEnterprisesContent.map(enterprise => (
-                            <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                            <Badge key={enterprise} variant="secondary" className="text-xs bg-blue-500 text-white">{enterprise}</Badge>
                           ))}
                           {selectedFeedsContent.map(feed => (
-                            <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                            <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
                           ))}
                         </>
                       )}
@@ -221,14 +221,27 @@ export function SettingsPage() {
                   </div>
                 )}
               </div>
-              <Button 
-                size="sm" 
-                className="min-w-[80px]"
-                variant={isContentStorageEnabled ? "destructive" : "default"}
-                onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
-              >
-                {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
-              </Button>
+              <div className="flex gap-2">
+                {isPIIHashingEnabled && !isContentStorageEnabled && (
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                    onClick={() => setShowContentDialog(true)}
+                  >
+                    <Edit className="mr-1 h-3 w-3" />
+                    EDIT
+                  </Button>
+                )}
+                <Button 
+                  size="sm" 
+                  className="min-w-[80px]"
+                  variant={isContentStorageEnabled ? "destructive" : "default"}
+                  onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
+                >
+                  {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
+                </Button>
+              </div>
             </div>
           </div>
           </div>
