@@ -181,14 +181,27 @@ export function SettingsPage() {
                   </div>
                 )}
               </div>
-              <Button 
-                size="sm" 
-                className="min-w-[80px]" 
-                variant={isPIIHashingEnabled ? "destructive" : "default"}
-                onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
-              >
-                {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
-              </Button>
+              <div className="flex gap-2">
+                {isPIIHashingEnabled && (
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    className="min-w-[80px] bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                    onClick={() => setShowPIIDialog(true)}
+                  >
+                    <Edit className="mr-1 h-3 w-3" />
+                    EDIT
+                  </Button>
+                )}
+                <Button 
+                  size="sm" 
+                  className="min-w-[80px]" 
+                  variant={isPIIHashingEnabled ? "destructive" : "default"}
+                  onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
+                >
+                  {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
+                </Button>
+              </div>
             </div>
 
             {/* PII Hashing - Message Content */}
@@ -222,7 +235,7 @@ export function SettingsPage() {
                 )}
               </div>
               <div className="flex gap-2">
-                {isPIIHashingEnabled && !isContentStorageEnabled && (
+                {isContentStorageEnabled && (
                   <Button 
                     size="sm" 
                     variant="outline"
