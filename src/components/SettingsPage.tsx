@@ -194,13 +194,13 @@ export function SettingsPage() {
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
-                    Once encryption is activated, the data cannot be decrypted to the original value.
+                    Once hashing is activated, the data cannot be decrypted to the original value.
                   </p>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
-                    Encryption is only applicable to the data which is received post activating of encryption.
+                    Hashing is only applicable to the data which is received post activating of hashing.
                   </p>
                 </div>
               </div>
@@ -297,7 +297,7 @@ export function SettingsPage() {
               CANCEL
             </Button>
             <Button onClick={() => setShowPIIDialog(false)}>
-              ENCRYPT
+              HASH
             </Button>
           </DialogFooter>
         </DialogContent>
