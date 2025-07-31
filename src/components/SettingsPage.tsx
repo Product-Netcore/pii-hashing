@@ -3,28 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Edit, Plus, ExternalLink } from "lucide-react";
-
-const feedData = [
-  {
-    feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
-    peId: "58498958949549954"
-  },
-  {
-    feeds: ["SmartechQ...", "ALRT_1688..."],
-    peId: "110173400000028857"
-  },
-  {
-    feeds: ["intncbizbond"],
-    peId: "22222222222222222"
-  }
-];
-
+const feedData = [{
+  feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
+  peId: "58498958949549954"
+}, {
+  feeds: ["SmartechQ...", "ALRT_1688..."],
+  peId: "110173400000028857"
+}, {
+  feeds: ["intncbizbond"],
+  peId: "22222222222222222"
+}];
 export function SettingsPage() {
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
-
-  return (
-    <div className="flex-1 overflow-auto">
+  return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
           <h1 className="text-2xl font-semibold text-foreground mb-8">Settings</h1>
@@ -78,24 +70,16 @@ export function SettingsPage() {
               </div>
 
               <div className="divide-y divide-border">
-                {feedData.map((row, index) => (
-                  <div key={index} className="grid grid-cols-2 gap-4 p-4">
+                {feedData.map((row, index) => <div key={index} className="grid grid-cols-2 gap-4 p-4">
                     <div className="flex flex-wrap gap-2">
-                      {row.feeds.map((feed, feedIndex) => (
-                        <Badge 
-                          key={feedIndex} 
-                          variant="pill"
-                          className="text-xs"
-                        >
+                      {row.feeds.map((feed, feedIndex) => <Badge key={feedIndex} variant="pill" className="text-xs">
                           {feed}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
                     <div className="text-sm text-foreground font-mono">
                       {row.peId}
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
 
@@ -129,10 +113,8 @@ export function SettingsPage() {
             {/* PII Hashing - Message Content */}
             <div className="flex items-center justify-between p-6 border border-border rounded-lg">
               <div>
-                <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Message Content</h3>
-                <p className="text-sm text-muted-foreground">
-                  Enhanced protection of customer privacy with hashing user wise message content.
-                </p>
+                <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
+                <p className="text-sm text-muted-foreground">Enhanced protection of customer privacy with disabling storage of user wise message content.</p>
               </div>
               <Button size="sm" className="min-w-[80px]">
                 ENABLE
@@ -164,6 +146,5 @@ export function SettingsPage() {
           Question? Chat with us.
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 }
