@@ -22,13 +22,19 @@ export function SettingsPage() {
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
   const [showPIIDialog, setShowPIIDialog] = useState(false);
+  const [showContentDialog, setShowContentDialog] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [isPIIHashingEnabled, setIsPIIHashingEnabled] = useState(false);
+  const [isContentStorageEnabled, setIsContentStorageEnabled] = useState(false);
   const [enableAllEnterprises, setEnableAllEnterprises] = useState(true);
+  const [enableAllEnterprisesContent, setEnableAllEnterprisesContent] = useState(true);
   const [selectedEnterprises, setSelectedEnterprises] = useState<string[]>([]);
   const [selectedFeeds, setSelectedFeeds] = useState<string[]>([]);
+  const [selectedEnterprisesContent, setSelectedEnterprisesContent] = useState<string[]>([]);
+  const [selectedFeedsContent, setSelectedFeedsContent] = useState<string[]>([]);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
   const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond"];
@@ -43,6 +49,22 @@ export function SettingsPage() {
 
   const handleFeedToggle = (feed: string) => {
     setSelectedFeeds(prev => 
+      prev.includes(feed) 
+        ? prev.filter(f => f !== feed)
+        : [...prev, feed]
+    );
+  };
+
+  const handleEnterpriseToggleContent = (enterprise: string) => {
+    setSelectedEnterprisesContent(prev => 
+      prev.includes(enterprise) 
+        ? prev.filter(e => e !== enterprise)
+        : [...prev, enterprise]
+    );
+  };
+
+  const handleFeedToggleContent = (feed: string) => {
+    setSelectedFeedsContent(prev => 
       prev.includes(feed) 
         ? prev.filter(f => f !== feed)
         : [...prev, feed]
@@ -154,12 +176,69 @@ export function SettingsPage() {
             <div className="flex items-center justify-between p-6 border border-border rounded-lg">
               <div>
                 <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
-                <p className="text-sm text-muted-foreground">Enhanced protection of customer privacy with disabling storage of user wise message content.</p>
+                <p className="text-sm text-muted-foreground">
+                  {isContentStorageEnabled 
+                    ? "Message content storage is disabled for all Enterprises on the panel."
+                    : "Enhanced protection of customer privacy with disabling storage of user wise message content."
+                  }
+                </p>
               </div>
-              <Button size="sm" className="min-w-[80px]">
-                ENABLE
+              <Button 
+                size="sm" 
+                className="min-w-[80px]"
+                variant={isContentStorageEnabled ? "destructive" : "default"}
+                onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
+              >
+                {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
               </Button>
             </div>
+
+            {/* Hashing Status Display */}
+            {(isPIIHashingEnabled || isContentStorageEnabled) && (
+              <div className="p-6 border border-border rounded-lg bg-muted/20">
+                <h3 className="text-lg font-medium text-foreground mb-4">Hashing Status</h3>
+                <div className="space-y-4">
+                  {isPIIHashingEnabled && (
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground mb-2">PII Hashing - Mobile Number</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {enableAllEnterprises ? (
+                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                        ) : (
+                          <>
+                            {selectedEnterprises.map(enterprise => (
+                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                            ))}
+                            {selectedFeeds.map(feed => (
+                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {isContentStorageEnabled && (
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground mb-2">Message Content Storage</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {enableAllEnterprisesContent ? (
+                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                        ) : (
+                          <>
+                            {selectedEnterprisesContent.map(enterprise => (
+                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                            ))}
+                            {selectedFeedsContent.map(feed => (
+                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
           </div>
 
@@ -247,7 +326,7 @@ export function SettingsPage() {
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0" align="start">
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         {enterprises.map((enterprise) => (
                           <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
@@ -281,7 +360,7 @@ export function SettingsPage() {
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0" align="start">
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         {feeds.map((feed) => (
                           <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
@@ -312,9 +391,144 @@ export function SettingsPage() {
             </Button>
             <Button onClick={() => {
               setShowPIIDialog(false);
+              setCurrentAction("pii");
               setShowAuthDialog(true);
             }}>
               HASH
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Content Storage Dialog */}
+      <Dialog open={showContentDialog} onOpenChange={setShowContentDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="sr-only">Disable Message Content Storage</DialogTitle>
+          </DialogHeader>
+          
+          <div className="text-center space-y-6">
+            {/* Illustration */}
+            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
+              <div className="text-left space-y-2">
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    Once content storage is disabled, message content will not be stored.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    This setting is only applicable to the data which is received post activation.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Checkbox for all enterprises */}
+            <div className="flex items-start space-x-2 text-left">
+              <Checkbox 
+                id="enable-all-content" 
+                checked={enableAllEnterprisesContent}
+                onCheckedChange={(checked) => setEnableAllEnterprisesContent(checked as boolean)}
+              />
+              <label htmlFor="enable-all-content" className="text-sm text-foreground">
+                Content storage will be disabled on all the Enterprises on this panel
+              </label>
+            </div>
+
+            {/* Conditional dropdowns */}
+            {!enableAllEnterprisesContent && (
+              <div className="space-y-4">
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedEnterprisesContent.length > 0 
+                          ? `${selectedEnterprisesContent.length} enterprise(s) selected`
+                          : "Select enterprises..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                      <div className="p-2">
+                        {enterprises.map((enterprise) => (
+                          <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`enterprise-content-${enterprise}`}
+                              checked={selectedEnterprisesContent.includes(enterprise)}
+                              onCheckedChange={() => handleEnterpriseToggleContent(enterprise)}
+                            />
+                            <label 
+                              htmlFor={`enterprise-content-${enterprise}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {enterprise}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedFeedsContent.length > 0 
+                          ? `${selectedFeedsContent.length} feed(s) selected`
+                          : "Select feeds..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                      <div className="p-2">
+                        {feeds.map((feed) => (
+                          <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`feed-content-${feed}`}
+                              checked={selectedFeedsContent.includes(feed)}
+                              onCheckedChange={() => handleFeedToggleContent(feed)}
+                            />
+                            <label 
+                              htmlFor={`feed-content-${feed}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {feed}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter className="gap-3">
+            <Button variant="outline" onClick={() => setShowContentDialog(false)}>
+              CANCEL
+            </Button>
+            <Button onClick={() => {
+              setShowContentDialog(false);
+              setCurrentAction("content");
+              setShowAuthDialog(true);
+            }}>
+              DISABLE
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -388,9 +602,14 @@ export function SettingsPage() {
             </Button>
             <Button onClick={() => {
               setShowAuthDialog(false);
-              setIsPIIHashingEnabled(true);
+              if (currentAction === "pii") {
+                setIsPIIHashingEnabled(true);
+              } else if (currentAction === "content") {
+                setIsContentStorageEnabled(true);
+              }
               setPassword("");
               setShowPassword(false);
+              setCurrentAction(null);
             }}>
               AUTHORIZE
             </Button>
