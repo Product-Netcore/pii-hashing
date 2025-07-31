@@ -170,7 +170,23 @@ export function SettingsPage() {
                           <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
                         ))}
                         {selectedFeeds.length > 5 && (
-                          <Badge variant="secondary" className="text-xs">+{selectedFeeds.length - 5} more</Badge>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
+                                +{selectedFeeds.length - 5} more
+                              </Badge>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80 p-3" align="start">
+                              <div className="space-y-2">
+                                <h4 className="text-sm font-medium">All Selected Feeds:</h4>
+                                <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+                                  {selectedFeeds.map(feed => (
+                                    <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         )}
                       </div>
                     </div>
@@ -219,7 +235,23 @@ export function SettingsPage() {
                           <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
                         ))}
                         {selectedFeedsContent.length > 5 && (
-                          <Badge variant="secondary" className="text-xs bg-blue-400 text-white">+{selectedFeedsContent.length - 5} more</Badge>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Badge variant="secondary" className="text-xs bg-blue-400 text-white cursor-pointer hover:bg-blue-300">
+                                +{selectedFeedsContent.length - 5} more
+                              </Badge>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80 p-3" align="start">
+                              <div className="space-y-2">
+                                <h4 className="text-sm font-medium">All Selected Feeds:</h4>
+                                <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+                                  {selectedFeedsContent.map(feed => (
+                                    <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         )}
                       </div>
                     </div>
