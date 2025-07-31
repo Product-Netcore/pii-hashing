@@ -153,14 +153,33 @@ export function SettingsPage() {
           <div className="mt-12 space-y-6">
             {/* PII Hashing - Mobile Number */}
             <div className="flex items-center justify-between p-6 border border-border rounded-lg">
-              <div>
+              <div className="flex-1">
                 <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-3">
                   {isPIIHashingEnabled 
                     ? "PII Hashing is enabled for all Enterprises on the panel."
                     : "Enhanced protection of customer privacy with hashing customer's numbers."
                   }
                 </p>
+                {isPIIHashingEnabled && (
+                  <div className="mt-3">
+                    <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {enableAllEnterprises ? (
+                        <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                      ) : (
+                        <>
+                          {selectedEnterprises.map(enterprise => (
+                            <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                          ))}
+                          {selectedFeeds.map(feed => (
+                            <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               <Button 
                 size="sm" 
@@ -174,14 +193,33 @@ export function SettingsPage() {
 
             {/* PII Hashing - Message Content */}
             <div className="flex items-center justify-between p-6 border border-border rounded-lg">
-              <div>
+              <div className="flex-1">
                 <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-3">
                   {isContentStorageEnabled 
                     ? "Message content storage is disabled for all Enterprises on the panel."
                     : "Enhanced protection of customer privacy with disabling storage of user wise message content."
                   }
                 </p>
+                {isContentStorageEnabled && (
+                  <div className="mt-3">
+                    <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {enableAllEnterprisesContent ? (
+                        <Badge variant="default" className="text-xs">All Enterprises</Badge>
+                      ) : (
+                        <>
+                          {selectedEnterprisesContent.map(enterprise => (
+                            <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
+                          ))}
+                          {selectedFeedsContent.map(feed => (
+                            <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               <Button 
                 size="sm" 
@@ -192,53 +230,6 @@ export function SettingsPage() {
                 {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
               </Button>
             </div>
-
-            {/* Hashing Status Display */}
-            {(isPIIHashingEnabled || isContentStorageEnabled) && (
-              <div className="p-6 border border-border rounded-lg bg-muted/20">
-                <h3 className="text-lg font-medium text-foreground mb-4">Hashing Status</h3>
-                <div className="space-y-4">
-                  {isPIIHashingEnabled && (
-                    <div>
-                      <h4 className="text-sm font-medium text-foreground mb-2">PII Hashing - Mobile Number</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {enableAllEnterprises ? (
-                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
-                        ) : (
-                          <>
-                            {selectedEnterprises.map(enterprise => (
-                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
-                            ))}
-                            {selectedFeeds.map(feed => (
-                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                            ))}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  {isContentStorageEnabled && (
-                    <div>
-                      <h4 className="text-sm font-medium text-foreground mb-2">Message Content Storage</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {enableAllEnterprisesContent ? (
-                          <Badge variant="default" className="text-xs">All Enterprises</Badge>
-                        ) : (
-                          <>
-                            {selectedEnterprisesContent.map(enterprise => (
-                              <Badge key={enterprise} variant="secondary" className="text-xs">{enterprise}</Badge>
-                            ))}
-                            {selectedFeedsContent.map(feed => (
-                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                            ))}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
           </div>
           </div>
 
