@@ -385,7 +385,7 @@ export function SettingsPage() {
               setCurrentAction("pii");
               setShowAuthDialog(true);
             }}>
-              HASH
+              ENABLE HASHING
             </Button>
           </DialogFooter>
         </DialogContent>
