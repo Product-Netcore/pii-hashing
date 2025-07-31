@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Edit, Plus, ExternalLink } from "lucide-react";
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
@@ -16,6 +18,13 @@ const feedData = [{
 export function SettingsPage() {
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
+  const [showPIIDialog, setShowPIIDialog] = useState(false);
+  const [enableAllEnterprises, setEnableAllEnterprises] = useState(true);
+  const [selectedEnterprises, setSelectedEnterprises] = useState<string[]>([]);
+  const [selectedFeeds, setSelectedFeeds] = useState<string[]>([]);
+  
+  const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
+  const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond"];
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
@@ -105,7 +114,7 @@ export function SettingsPage() {
                   Enhanced protection of customer privacy with hashing customer's numbers.
                 </p>
               </div>
-              <Button size="sm" className="min-w-[80px]">
+              <Button size="sm" className="min-w-[80px]" onClick={() => setShowPIIDialog(true)}>
                 ENABLE
               </Button>
             </div>
@@ -146,5 +155,99 @@ export function SettingsPage() {
           Question? Chat with us.
         </Button>
       </div>
+
+      {/* PII Hashing Dialog */}
+      <Dialog open={showPIIDialog} onOpenChange={setShowPIIDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="sr-only">Enable PII Hashing</DialogTitle>
+          </DialogHeader>
+          
+          <div className="text-center space-y-6">
+            {/* Illustration */}
+            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
+              <div className="text-left space-y-2">
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    Once encryption is activated, the data cannot be decrypted to the original value.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    Encryption is only applicable to the data which is received post activating of encryption.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Checkbox for all enterprises */}
+            <div className="flex items-start space-x-2 text-left">
+              <Checkbox 
+                id="enable-all" 
+                checked={enableAllEnterprises}
+                onCheckedChange={(checked) => setEnableAllEnterprises(checked as boolean)}
+              />
+              <label htmlFor="enable-all" className="text-sm text-foreground">
+                PII Hashing will be enabled on all the Enterprises on this panel
+              </label>
+            </div>
+
+            {/* Conditional dropdowns */}
+            {!enableAllEnterprises && (
+              <div className="space-y-4">
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select enterprises..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {enterprises.map((enterprise) => (
+                        <SelectItem key={enterprise} value={enterprise}>
+                          {enterprise}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select feeds..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {feeds.map((feed) => (
+                        <SelectItem key={feed} value={feed}>
+                          {feed}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter className="gap-3">
+            <Button variant="outline" onClick={() => setShowPIIDialog(false)}>
+              CANCEL
+            </Button>
+            <Button onClick={() => setShowPIIDialog(false)}>
+              ENCRYPT
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>;
 }
