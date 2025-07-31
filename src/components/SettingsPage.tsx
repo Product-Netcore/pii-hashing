@@ -166,9 +166,12 @@ export function SettingsPage() {
                     <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedFeeds.map(feed => (
+                        {selectedFeeds.slice(0, 5).map(feed => (
                           <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
                         ))}
+                        {selectedFeeds.length > 5 && (
+                          <Badge variant="secondary" className="text-xs">+{selectedFeeds.length - 5} more</Badge>
+                        )}
                       </div>
                     </div>
                   )}
@@ -212,9 +215,12 @@ export function SettingsPage() {
                     <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedFeedsContent.map(feed => (
+                        {selectedFeedsContent.slice(0, 5).map(feed => (
                           <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
                         ))}
+                        {selectedFeedsContent.length > 5 && (
+                          <Badge variant="secondary" className="text-xs bg-blue-400 text-white">+{selectedFeedsContent.length - 5} more</Badge>
+                        )}
                       </div>
                     </div>
                   )}
