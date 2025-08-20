@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
+
 const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION", "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS", "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT", "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE", "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT", "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION", "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED", "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT", "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE", "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED", "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT", "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY", "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE", "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED", "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT", "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE", "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED", "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED", "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED", "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION", "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED", "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST", "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED", "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY", "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"];
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
@@ -19,6 +20,7 @@ const feedData = [{
   feeds: ["intncbizbond"],
   peId: "22222222222222222"
 }];
+
 export function SettingsPage() {
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
@@ -40,30 +42,39 @@ export function SettingsPage() {
   const [feedSearchQuery, setFeedSearchQuery] = useState("");
   const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
+
   const handleEnterpriseToggle = (enterprise: string) => {
     setSelectedEnterprises(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
+
   const handleFeedToggle = (feed: string) => {
     setSelectedFeeds(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
+
   const handleEnterpriseToggleContent = (enterprise: string) => {
     setSelectedEnterprisesContent(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
+
   const handleFeedToggleContent = (feed: string) => {
     setSelectedFeedsContent(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
+
   const handleSelectAllEnterprises = (checked: boolean) => {
     setSelectedEnterprises(checked ? [...enterprises] : []);
   };
+
   const handleSelectAllFeeds = (checked: boolean) => {
     setSelectedFeeds(checked ? [...feeds] : []);
   };
+
   const handleSelectAllEnterprisesContent = (checked: boolean) => {
     setSelectedEnterprisesContent(checked ? [...enterprises] : []);
   };
+
   const handleSelectAllFeedsContent = (checked: boolean) => {
     setSelectedFeedsContent(checked ? [...feeds] : []);
   };
+
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
@@ -556,7 +567,7 @@ export function SettingsPage() {
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="sr-only">Authorization Required</DialogTitle>
+            <DialogTitle className="sr-only">Verify & enable hashing</DialogTitle>
           </DialogHeader>
           
           <div className="text-center space-y-6">
@@ -573,7 +584,7 @@ export function SettingsPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4">Authorization required</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Verify & enable hashing</h3>
               <p className="text-sm text-muted-foreground mb-6">
                 Hey, before enabling / disabling encryption feature, we need to re-verify that you have access to this account. Please enter your account password to confirm.
               </p>
