@@ -423,12 +423,7 @@ export function SettingsPage() {
           </div>
 
           <DialogFooter className="gap-3">
-            <Button variant="outline" onClick={() => {
-            setShowPIIScopeDialog(false);
-            setShowPIINoteDialog(true);
-          }}>
-              BACK
-            </Button>
+            
             <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
               CANCEL
             </Button>
@@ -436,9 +431,7 @@ export function SettingsPage() {
             setShowPIIScopeDialog(false);
             setCurrentAction("pii");
             setShowAuthDialog(true);
-          }}>
-              ENABLE HASHING
-            </Button>
+          }}>NEXT</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
