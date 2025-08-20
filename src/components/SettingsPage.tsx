@@ -8,35 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
-const feeds = [
-  "PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", 
-  "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION",
-  "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS",
-  "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT",
-  "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE",
-  "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT",
-  "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION",
-  "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED",
-  "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT",
-  "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE",
-  "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED",
-  "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT",
-  "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY",
-  "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE",
-  "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED",
-  "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT",
-  "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE",
-  "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED",
-  "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED",
-  "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED",
-  "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION",
-  "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED",
-  "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST",
-  "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED",
-  "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY",
-  "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"
-];
-
+const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION", "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS", "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT", "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE", "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT", "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION", "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED", "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT", "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE", "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED", "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT", "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY", "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE", "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED", "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT", "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE", "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED", "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED", "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED", "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION", "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED", "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST", "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED", "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY", "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"];
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
   peId: "58498958949549954"
@@ -67,53 +39,28 @@ export function SettingsPage() {
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   const [feedSearchQuery, setFeedSearchQuery] = useState("");
   const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
-  
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
-
   const handleEnterpriseToggle = (enterprise: string) => {
-    setSelectedEnterprises(prev => 
-      prev.includes(enterprise) 
-        ? prev.filter(e => e !== enterprise)
-        : [...prev, enterprise]
-    );
+    setSelectedEnterprises(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
-
   const handleFeedToggle = (feed: string) => {
-    setSelectedFeeds(prev => 
-      prev.includes(feed) 
-        ? prev.filter(f => f !== feed)
-        : [...prev, feed]
-    );
+    setSelectedFeeds(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
-
   const handleEnterpriseToggleContent = (enterprise: string) => {
-    setSelectedEnterprisesContent(prev => 
-      prev.includes(enterprise) 
-        ? prev.filter(e => e !== enterprise)
-        : [...prev, enterprise]
-    );
+    setSelectedEnterprisesContent(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
-
   const handleFeedToggleContent = (feed: string) => {
-    setSelectedFeedsContent(prev => 
-      prev.includes(feed) 
-        ? prev.filter(f => f !== feed)
-        : [...prev, feed]
-    );
+    setSelectedFeedsContent(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
-
   const handleSelectAllEnterprises = (checked: boolean) => {
     setSelectedEnterprises(checked ? [...enterprises] : []);
   };
-
   const handleSelectAllFeeds = (checked: boolean) => {
     setSelectedFeeds(checked ? [...feeds] : []);
   };
-
   const handleSelectAllEnterprisesContent = (checked: boolean) => {
     setSelectedEnterprisesContent(checked ? [...enterprises] : []);
   };
-
   const handleSelectAllFeedsContent = (checked: boolean) => {
     setSelectedFeedsContent(checked ? [...feeds] : []);
   };
@@ -204,20 +151,13 @@ export function SettingsPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {isPIIHashingEnabled 
-                      ? "PII Hashing is enabled for all Enterprises on the panel."
-                      : "Enhanced protection of customer privacy with hashing customer's numbers."
-                    }
+                    {isPIIHashingEnabled ? "PII Hashing is enabled for all Enterprises on the panel." : "Enhanced protection of customer privacy with hashing customer's numbers."}
                   </p>
-                  {isPIIHashingEnabled && !enableAllEnterprises && (
-                    <div className="mt-3">
+                  {isPIIHashingEnabled && !enableAllEnterprises && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedFeeds.slice(0, 5).map(feed => (
-                          <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                        ))}
-                        {selectedFeeds.length > 5 && (
-                          <Popover>
+                        {selectedFeeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
+                        {selectedFeeds.length > 5 && <Popover>
                             <PopoverTrigger asChild>
                               <button className="inline-flex">
                                 <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
@@ -234,64 +174,34 @@ export function SettingsPage() {
                                   </Badge>
                                 </div>
                                 
-                                {selectedFeeds.length > 10 && (
-                                  <div className="relative">
+                                {selectedFeeds.length > 10 && <div className="relative">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input
-                                      placeholder="Search feeds..."
-                                      value={feedSearchQuery}
-                                      onChange={(e) => setFeedSearchQuery(e.target.value)}
-                                      className="pl-10 h-8 text-sm"
-                                    />
-                                  </div>
-                                )}
+                                    <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
+                                  </div>}
                                 
                                 <div className="max-h-60 overflow-y-auto">
                                   <div className="flex flex-wrap gap-2">
-                                    {(feedSearchQuery ? 
-                                      selectedFeeds.filter(feed => 
-                                        feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                                      ) : selectedFeeds
-                                    ).map(feed => (
-                                      <Badge key={feed} variant="outline" className="text-xs">
+                                    {(feedSearchQuery ? selectedFeeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())) : selectedFeeds).map(feed => <Badge key={feed} variant="outline" className="text-xs">
                                         {feed}
-                                      </Badge>
-                                    ))}
+                                      </Badge>)}
                                   </div>
                                   
-                                  {feedSearchQuery && selectedFeeds.filter(feed => 
-                                    feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                                  ).length === 0 && (
-                                    <div className="text-center py-4 text-sm text-muted-foreground">
+                                  {feedSearchQuery && selectedFeeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                                       No feeds found matching "{feedSearchQuery}"
-                                    </div>
-                                  )}
+                                    </div>}
                                 </div>
                               </div>
                             </PopoverContent>
-                          </Popover>
-                        )}
+                          </Popover>}
                       </div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
                 <div className="flex gap-2 ml-4">
-                  {isPIIHashingEnabled && (
-                    <Button 
-                      size="sm" 
-                      className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700"
-                      onClick={() => setShowPIIScopeDialog(true)}
-                    >
+                  {isPIIHashingEnabled && <Button size="sm" className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700" onClick={() => setShowPIIScopeDialog(true)}>
                       <Edit className="mr-1 h-3 w-3" />
                       EDIT
-                    </Button>
-                  )}
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    className={`min-w-[80px] ${isPIIHashingEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
-                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIINoteDialog(true)}
-                  >
+                    </Button>}
+                  <Button size="sm" variant="outline" className={`min-w-[80px] ${isPIIHashingEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`} onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIINoteDialog(true)}>
                     {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
                   </Button>
                 </div>
@@ -304,20 +214,13 @@ export function SettingsPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {isContentStorageEnabled 
-                      ? "Message content storage is disabled for all Enterprises on the panel."
-                      : "Enhanced protection of customer privacy with disabling storage of user wise message content."
-                    }
+                    {isContentStorageEnabled ? "Message content storage is disabled for all Enterprises on the panel." : "Enhanced protection of customer privacy with disabling storage of user wise message content."}
                   </p>
-                  {isContentStorageEnabled && !enableAllEnterprisesContent && (
-                    <div className="mt-3">
+                  {isContentStorageEnabled && !enableAllEnterprisesContent && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedFeedsContent.slice(0, 5).map(feed => (
-                          <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
-                        ))}
-                        {selectedFeedsContent.length > 5 && (
-                          <Popover>
+                        {selectedFeedsContent.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>)}
+                        {selectedFeedsContent.length > 5 && <Popover>
                             <PopoverTrigger asChild>
                               <button className="inline-flex">
                                 <Badge variant="secondary" className="text-xs bg-blue-400 text-white cursor-pointer hover:bg-blue-300">
@@ -334,64 +237,34 @@ export function SettingsPage() {
                                   </Badge>
                                 </div>
                                 
-                                {selectedFeedsContent.length > 10 && (
-                                  <div className="relative">
+                                {selectedFeedsContent.length > 10 && <div className="relative">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input
-                                      placeholder="Search feeds..."
-                                      value={contentFeedSearchQuery}
-                                      onChange={(e) => setContentFeedSearchQuery(e.target.value)}
-                                      className="pl-10 h-8 text-sm"
-                                    />
-                                  </div>
-                                )}
+                                    <Input placeholder="Search feeds..." value={contentFeedSearchQuery} onChange={e => setContentFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
+                                  </div>}
                                 
                                 <div className="max-h-60 overflow-y-auto">
                                   <div className="flex flex-wrap gap-2">
-                                    {(contentFeedSearchQuery ? 
-                                      selectedFeedsContent.filter(feed => 
-                                        feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                                      ) : selectedFeedsContent
-                                    ).map(feed => (
-                                      <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">
+                                    {(contentFeedSearchQuery ? selectedFeedsContent.filter(feed => feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())) : selectedFeedsContent).map(feed => <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">
                                         {feed}
-                                      </Badge>
-                                    ))}
+                                      </Badge>)}
                                   </div>
                                   
-                                  {contentFeedSearchQuery && selectedFeedsContent.filter(feed => 
-                                    feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                                  ).length === 0 && (
-                                    <div className="text-center py-4 text-sm text-muted-foreground">
+                                  {contentFeedSearchQuery && selectedFeedsContent.filter(feed => feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                                       No feeds found matching "{contentFeedSearchQuery}"
-                                    </div>
-                                  )}
+                                    </div>}
                                 </div>
                               </div>
                             </PopoverContent>
-                          </Popover>
-                        )}
+                          </Popover>}
                       </div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
                 <div className="flex gap-2 ml-4">
-                  {isContentStorageEnabled && (
-                    <Button 
-                      size="sm" 
-                      className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700"
-                      onClick={() => setShowContentDialog(true)}
-                    >
+                  {isContentStorageEnabled && <Button size="sm" className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700" onClick={() => setShowContentDialog(true)}>
                       <Edit className="mr-1 h-3 w-3" />
                       EDIT
-                    </Button>
-                  )}
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    className={`min-w-[80px] ${isContentStorageEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
-                    onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}
-                  >
+                    </Button>}
+                  <Button size="sm" variant="outline" className={`min-w-[80px] ${isContentStorageEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`} onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}>
                     {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
                   </Button>
                 </div>
@@ -463,11 +336,9 @@ export function SettingsPage() {
               CANCEL
             </Button>
             <Button onClick={() => {
-              setShowPIINoteDialog(false);
-              setShowPIIScopeDialog(true);
-            }}>
-              NEXT
-            </Button>
+            setShowPIINoteDialog(false);
+            setShowPIIScopeDialog(true);
+          }}>CONTINUE</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -498,43 +369,24 @@ export function SettingsPage() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full justify-between">
-                      {selectedEnterprises.length > 0 
-                        ? `${selectedEnterprises.length} enterprise(s) selected`
-                        : "Select enterprises..."
-                      }
+                      {selectedEnterprises.length > 0 ? `${selectedEnterprises.length} enterprise(s) selected` : "Select enterprises..."}
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
-                        <Checkbox 
-                          id="select-all-enterprises"
-                          checked={selectedEnterprises.length === enterprises.length}
-                          onCheckedChange={handleSelectAllEnterprises}
-                        />
-                        <label 
-                          htmlFor="select-all-enterprises" 
-                          className="text-sm font-medium cursor-pointer flex-1"
-                        >
+                        <Checkbox id="select-all-enterprises" checked={selectedEnterprises.length === enterprises.length} onCheckedChange={handleSelectAllEnterprises} />
+                        <label htmlFor="select-all-enterprises" className="text-sm font-medium cursor-pointer flex-1">
                           Select All
                         </label>
                       </div>
-                      {enterprises.map((enterprise) => (
-                        <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                          <Checkbox 
-                            id={`enterprise-${enterprise}`}
-                            checked={selectedEnterprises.includes(enterprise)}
-                            onCheckedChange={() => handleEnterpriseToggle(enterprise)}
-                          />
-                          <label 
-                            htmlFor={`enterprise-${enterprise}`} 
-                            className="text-sm cursor-pointer flex-1"
-                          >
+                      {enterprises.map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                          <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
+                          <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
                             {enterprise}
                           </label>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -545,43 +397,24 @@ export function SettingsPage() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full justify-between">
-                      {selectedFeeds.length > 0 
-                        ? `${selectedFeeds.length} feed(s) selected`
-                        : "Select feeds..."
-                      }
+                      {selectedFeeds.length > 0 ? `${selectedFeeds.length} feed(s) selected` : "Select feeds..."}
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
-                        <Checkbox 
-                          id="select-all-feeds"
-                          checked={selectedFeeds.length === feeds.length}
-                          onCheckedChange={handleSelectAllFeeds}
-                        />
-                        <label 
-                          htmlFor="select-all-feeds" 
-                          className="text-sm font-medium cursor-pointer flex-1"
-                        >
+                        <Checkbox id="select-all-feeds" checked={selectedFeeds.length === feeds.length} onCheckedChange={handleSelectAllFeeds} />
+                        <label htmlFor="select-all-feeds" className="text-sm font-medium cursor-pointer flex-1">
                           Select All
                         </label>
                       </div>
-                      {feeds.map((feed) => (
-                        <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                          <Checkbox 
-                            id={`feed-${feed}`}
-                            checked={selectedFeeds.includes(feed)}
-                            onCheckedChange={() => handleFeedToggle(feed)}
-                          />
-                          <label 
-                            htmlFor={`feed-${feed}`} 
-                            className="text-sm cursor-pointer flex-1"
-                          >
+                      {feeds.map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                          <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
+                          <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
                             {feed}
                           </label>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -591,19 +424,19 @@ export function SettingsPage() {
 
           <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => {
-              setShowPIIScopeDialog(false);
-              setShowPIINoteDialog(true);
-            }}>
+            setShowPIIScopeDialog(false);
+            setShowPIINoteDialog(true);
+          }}>
               BACK
             </Button>
             <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
               CANCEL
             </Button>
             <Button onClick={() => {
-              setShowPIIScopeDialog(false);
-              setCurrentAction("pii");
-              setShowAuthDialog(true);
-            }}>
+            setShowPIIScopeDialog(false);
+            setCurrentAction("pii");
+            setShowAuthDialog(true);
+          }}>
               ENABLE HASHING
             </Button>
           </DialogFooter>
@@ -645,61 +478,37 @@ export function SettingsPage() {
 
             {/* Checkbox for all enterprises */}
             <div className="flex items-start space-x-2 text-left">
-              <Checkbox 
-                id="enable-all-content" 
-                checked={enableAllEnterprisesContent}
-                onCheckedChange={(checked) => setEnableAllEnterprisesContent(checked as boolean)}
-              />
+              <Checkbox id="enable-all-content" checked={enableAllEnterprisesContent} onCheckedChange={checked => setEnableAllEnterprisesContent(checked as boolean)} />
               <label htmlFor="enable-all-content" className="text-sm text-foreground">
                 Content storage will be disabled on all the Enterprises on this panel
               </label>
             </div>
 
             {/* Conditional dropdowns */}
-            {!enableAllEnterprisesContent && (
-              <div className="space-y-4">
+            {!enableAllEnterprisesContent && <div className="space-y-4">
                 <div className="text-left">
                   <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-between">
-                        {selectedEnterprisesContent.length > 0 
-                          ? `${selectedEnterprisesContent.length} enterprise(s) selected`
-                          : "Select enterprises..."
-                        }
+                        {selectedEnterprisesContent.length > 0 ? `${selectedEnterprisesContent.length} enterprise(s) selected` : "Select enterprises..."}
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
-                          <Checkbox 
-                            id="select-all-enterprises-content"
-                            checked={selectedEnterprisesContent.length === enterprises.length}
-                            onCheckedChange={handleSelectAllEnterprisesContent}
-                          />
-                          <label 
-                            htmlFor="select-all-enterprises-content" 
-                            className="text-sm font-medium cursor-pointer flex-1"
-                          >
+                          <Checkbox id="select-all-enterprises-content" checked={selectedEnterprisesContent.length === enterprises.length} onCheckedChange={handleSelectAllEnterprisesContent} />
+                          <label htmlFor="select-all-enterprises-content" className="text-sm font-medium cursor-pointer flex-1">
                             Select All
                           </label>
                         </div>
-                        {enterprises.map((enterprise) => (
-                          <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox 
-                              id={`enterprise-content-${enterprise}`}
-                              checked={selectedEnterprisesContent.includes(enterprise)}
-                              onCheckedChange={() => handleEnterpriseToggleContent(enterprise)}
-                            />
-                            <label 
-                              htmlFor={`enterprise-content-${enterprise}`} 
-                              className="text-sm cursor-pointer flex-1"
-                            >
+                        {enterprises.map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
+                            <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
                               {enterprise}
                             </label>
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -710,49 +519,29 @@ export function SettingsPage() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-between">
-                        {selectedFeedsContent.length > 0 
-                          ? `${selectedFeedsContent.length} feed(s) selected`
-                          : "Select feeds..."
-                        }
+                        {selectedFeedsContent.length > 0 ? `${selectedFeedsContent.length} feed(s) selected` : "Select feeds..."}
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
-                          <Checkbox 
-                            id="select-all-feeds-content"
-                            checked={selectedFeedsContent.length === feeds.length}
-                            onCheckedChange={handleSelectAllFeedsContent}
-                          />
-                          <label 
-                            htmlFor="select-all-feeds-content" 
-                            className="text-sm font-medium cursor-pointer flex-1"
-                          >
+                          <Checkbox id="select-all-feeds-content" checked={selectedFeedsContent.length === feeds.length} onCheckedChange={handleSelectAllFeedsContent} />
+                          <label htmlFor="select-all-feeds-content" className="text-sm font-medium cursor-pointer flex-1">
                             Select All
                           </label>
                         </div>
-                        {feeds.map((feed) => (
-                          <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox 
-                              id={`feed-content-${feed}`}
-                              checked={selectedFeedsContent.includes(feed)}
-                              onCheckedChange={() => handleFeedToggleContent(feed)}
-                            />
-                            <label 
-                              htmlFor={`feed-content-${feed}`} 
-                              className="text-sm cursor-pointer flex-1"
-                            >
+                        {feeds.map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
+                            <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
                               {feed}
                             </label>
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
                     </PopoverContent>
                   </Popover>
                 </div>
-              </div>
-            )}
+              </div>}
           </div>
 
           <DialogFooter className="gap-3">
@@ -760,10 +549,10 @@ export function SettingsPage() {
               CANCEL
             </Button>
             <Button onClick={() => {
-              setShowContentDialog(false);
-              setCurrentAction("content");
-              setShowAuthDialog(true);
-            }}>
+            setShowContentDialog(false);
+            setCurrentAction("content");
+            setShowAuthDialog(true);
+          }}>
               DISABLE
             </Button>
           </DialogFooter>
@@ -803,26 +592,9 @@ export function SettingsPage() {
                 Password *
               </Label>
               <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10"
-                  placeholder="Enter your password"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" />
-                  )}
+                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="pr-10" placeholder="Enter your password" />
+                <Button type="button" variant="ghost" size="sm" className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <EyeOff className="h-4 w-4 text-muted-foreground" /> : <Eye className="h-4 w-4 text-muted-foreground" />}
                 </Button>
               </div>
             </div>
@@ -830,23 +602,23 @@ export function SettingsPage() {
 
           <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => {
-              setShowAuthDialog(false);
-              setPassword("");
-              setShowPassword(false);
-            }}>
+            setShowAuthDialog(false);
+            setPassword("");
+            setShowPassword(false);
+          }}>
               CANCEL
             </Button>
             <Button onClick={() => {
-              setShowAuthDialog(false);
-              if (currentAction === "pii") {
-                setIsPIIHashingEnabled(true);
-              } else if (currentAction === "content") {
-                setIsContentStorageEnabled(true);
-              }
-              setPassword("");
-              setShowPassword(false);
-              setCurrentAction(null);
-            }}>
+            setShowAuthDialog(false);
+            if (currentAction === "pii") {
+              setIsPIIHashingEnabled(true);
+            } else if (currentAction === "content") {
+              setIsContentStorageEnabled(true);
+            }
+            setPassword("");
+            setShowPassword(false);
+            setCurrentAction(null);
+          }}>
               AUTHORIZE
             </Button>
           </DialogFooter>
