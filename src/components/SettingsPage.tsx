@@ -218,9 +218,11 @@ export function SettingsPage() {
                         {selectedFeeds.length > 5 && (
                           <Popover>
                             <PopoverTrigger asChild>
-                              <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
-                                +{selectedFeeds.length - 5} more
-                              </Badge>
+                              <button className="inline-flex">
+                                <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
+                                  +{selectedFeeds.length - 5} more
+                                </Badge>
+                              </button>
                             </PopoverTrigger>
                             <PopoverContent className="w-96">
                               <div className="space-y-3">
