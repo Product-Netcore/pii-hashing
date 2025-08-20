@@ -50,7 +50,8 @@ const feedData = [{
 export function SettingsPage() {
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
-  const [showPIIDialog, setShowPIIDialog] = useState(false);
+  const [showPIINoteDialog, setShowPIINoteDialog] = useState(false);
+  const [showPIIScopeDialog, setShowPIIScopeDialog] = useState(false);
   const [showContentDialog, setShowContentDialog] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [isPIIHashingEnabled, setIsPIIHashingEnabled] = useState(false);
@@ -279,7 +280,7 @@ export function SettingsPage() {
                     <Button 
                       size="sm" 
                       className="min-w-[80px] bg-blue-600 text-white hover:bg-blue-700"
-                      onClick={() => setShowPIIDialog(true)}
+                      onClick={() => setShowPIIScopeDialog(true)}
                     >
                       <Edit className="mr-1 h-3 w-3" />
                       EDIT
@@ -289,7 +290,7 @@ export function SettingsPage() {
                     size="sm" 
                     variant="outline"
                     className={`min-w-[80px] ${isPIIHashingEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
-                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
+                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIINoteDialog(true)}
                   >
                     {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
                   </Button>
@@ -423,11 +424,11 @@ export function SettingsPage() {
         </Button>
       </div>
 
-      {/* PII Hashing Dialog */}
-      <Dialog open={showPIIDialog} onOpenChange={setShowPIIDialog}>
+      {/* PII Hashing Note Dialog */}
+      <Dialog open={showPIINoteDialog} onOpenChange={setShowPIINoteDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="sr-only">Enable PII Hashing</DialogTitle>
+            <DialogTitle className="sr-only">PII Hashing Notes</DialogTitle>
           </DialogHeader>
           
           <div className="text-center space-y-6">
@@ -454,6 +455,40 @@ export function SettingsPage() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-3">
+            <Button variant="outline" onClick={() => setShowPIINoteDialog(false)}>
+              CANCEL
+            </Button>
+            <Button onClick={() => {
+              setShowPIINoteDialog(false);
+              setShowPIIScopeDialog(true);
+            }}>
+              NEXT
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* PII Hashing Scope Dialog */}
+      <Dialog open={showPIIScopeDialog} onOpenChange={setShowPIIScopeDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="sr-only">Select Enterprises and Feeds</DialogTitle>
+          </DialogHeader>
+          
+          <div className="text-center space-y-6">
+            {/* Illustration */}
+            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Select scope</h3>
             </div>
 
             {/* Enterprise and Feed selection */}
@@ -555,11 +590,17 @@ export function SettingsPage() {
           </div>
 
           <DialogFooter className="gap-3">
-            <Button variant="outline" onClick={() => setShowPIIDialog(false)}>
+            <Button variant="outline" onClick={() => {
+              setShowPIIScopeDialog(false);
+              setShowPIINoteDialog(true);
+            }}>
+              BACK
+            </Button>
+            <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
               CANCEL
             </Button>
             <Button onClick={() => {
-              setShowPIIDialog(false);
+              setShowPIIScopeDialog(false);
               setCurrentAction("pii");
               setShowAuthDialog(true);
             }}>
