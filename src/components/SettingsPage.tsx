@@ -344,7 +344,7 @@ export function SettingsPage() {
 
           <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => setShowPIINoteDialog(false)}>
-              CANCEL
+              Cancel
             </Button>
             <Button onClick={() => {
             setShowPIINoteDialog(false);
@@ -436,13 +436,13 @@ export function SettingsPage() {
           <DialogFooter className="gap-3">
             
             <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
-              CANCEL
+              Cancel
             </Button>
             <Button onClick={() => {
             setShowPIIScopeDialog(false);
             setCurrentAction("pii");
             setShowAuthDialog(true);
-          }}>NEXT</Button>
+          }}>Next</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -550,14 +550,14 @@ export function SettingsPage() {
 
           <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => setShowContentDialog(false)}>
-              CANCEL
+              Cancel
             </Button>
             <Button onClick={() => {
             setShowContentDialog(false);
             setCurrentAction("content");
             setShowAuthDialog(true);
           }}>
-              DISABLE
+              Disable
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -610,7 +610,7 @@ export function SettingsPage() {
             setPassword("");
             setShowPassword(false);
           }}>
-              CANCEL
+              Cancel
             </Button>
             <Button onClick={() => {
             setShowAuthDialog(false);
