@@ -388,20 +388,8 @@ export function SettingsPage() {
               <h3 className="text-lg font-semibold text-foreground mb-4">Choose where hashing applies</h3>
             </div>
 
-            {/* Checkbox for all enterprises */}
-            <div className="flex items-start space-x-2 text-left">
-              <Checkbox 
-                id="enable-all-pii" 
-                checked={enableAllEnterprises} 
-                onCheckedChange={(checked) => setEnableAllEnterprises(checked as boolean)} 
-              />
-              <label htmlFor="enable-all-pii" className="text-sm text-foreground">
-                PII hashing will be enabled on all the Enterprises on this panel
-              </label>
-            </div>
-
-            {/* Conditional dropdowns */}
-            {!enableAllEnterprises && <div className="space-y-4">
+            {/* Enterprise and Feed selection */}
+            <div className="space-y-4">
               <div className="text-left">
                 <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                 <Popover>
@@ -457,7 +445,7 @@ export function SettingsPage() {
                   </PopoverContent>
                  </Popover>
                </div>
-             </div>}
+             </div>
            </div>
 
            <DialogFooter className="gap-3">
