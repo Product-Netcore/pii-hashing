@@ -359,7 +359,7 @@ export function SettingsPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4">Select scope</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Choose where hashing applies</h3>
             </div>
 
             {/* Enterprise and Feed selection */}
