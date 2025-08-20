@@ -41,6 +41,12 @@ export function SettingsPage() {
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   const [feedSearchQuery, setFeedSearchQuery] = useState("");
   const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
+  // Single source of truth for PII scope
+  const [piiScope, setPiiScope] = useState<{ mode: 'all' | 'selected'; enterprises: string[]; feeds: string[] }>({ 
+    mode: 'all', 
+    enterprises: [], 
+    feeds: [] 
+  });
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
 
   const handleEnterpriseToggle = (enterprise: string) => {
@@ -162,49 +168,58 @@ export function SettingsPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {isPIIHashingEnabled ? "PII Hashing is enabled for all Enterprises on the panel." : "Enhanced protection of customer privacy with hashing customer's numbers."}
+                    {isPIIHashingEnabled ? 
+                      (piiScope.mode === 'all' ? "PII Hashing is enabled for all Enterprises on the panel." : "PII Hashing is enabled for selected Enterprises and feeds.") 
+                      : "Enhanced protection of customer privacy with hashing customer's numbers."}
                   </p>
-                  {isPIIHashingEnabled && !enableAllEnterprises && <div className="mt-3">
+                  {isPIIHashingEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedFeeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
-                        {selectedFeeds.length > 5 && <Popover>
-                            <PopoverTrigger asChild>
-                              <button className="inline-flex">
-                                <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
-                                  +{selectedFeeds.length - 5} more
-                                </Badge>
-                              </button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-96">
-                              <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                  <h4 className="text-sm font-medium">Selected Feeds</h4>
-                                  <Badge variant="secondary" className="text-xs">
-                                    {selectedFeeds.length} total
+                      {piiScope.mode === 'all' ? (
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="outline" className="text-xs">All enterprises</Badge>
+                          <Badge variant="outline" className="text-xs">All feeds</Badge>
+                        </div>
+                      ) : (
+                        <div className="flex flex-wrap gap-2">
+                          {piiScope.feeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
+                          {piiScope.feeds.length > 5 && <Popover>
+                              <PopoverTrigger asChild>
+                                <button className="inline-flex">
+                                  <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
+                                    +{piiScope.feeds.length - 5} more
                                   </Badge>
-                                </div>
-                                
-                                {selectedFeeds.length > 10 && <div className="relative">
-                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
-                                  </div>}
-                                
-                                <div className="max-h-60 overflow-y-auto">
-                                  <div className="flex flex-wrap gap-2">
-                                    {(feedSearchQuery ? selectedFeeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())) : selectedFeeds).map(feed => <Badge key={feed} variant="outline" className="text-xs">
-                                        {feed}
-                                      </Badge>)}
+                                </button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-96">
+                                <div className="space-y-3">
+                                  <div className="flex items-center justify-between">
+                                    <h4 className="text-sm font-medium">Selected Feeds</h4>
+                                    <Badge variant="secondary" className="text-xs">
+                                      {piiScope.feeds.length} total
+                                    </Badge>
                                   </div>
                                   
-                                  {feedSearchQuery && selectedFeeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
-                                      No feeds found matching "{feedSearchQuery}"
+                                  {piiScope.feeds.length > 10 && <div className="relative">
+                                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                      <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                                     </div>}
+                                  
+                                  <div className="max-h-60 overflow-y-auto">
+                                    <div className="flex flex-wrap gap-2">
+                                      {(feedSearchQuery ? piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())) : piiScope.feeds).map(feed => <Badge key={feed} variant="outline" className="text-xs">
+                                          {feed}
+                                        </Badge>)}
+                                    </div>
+                                    
+                                    {feedSearchQuery && piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
+                                        No feeds found matching "{feedSearchQuery}"
+                                      </div>}
+                                  </div>
                                 </div>
-                              </div>
-                            </PopoverContent>
-                          </Popover>}
-                      </div>
+                              </PopoverContent>
+                            </Popover>}
+                        </div>
+                      )}
                     </div>}
                 </div>
                 <div className="flex gap-2 ml-4">
@@ -628,6 +643,12 @@ export function SettingsPage() {
             setShowAuthDialog(false);
             if (currentAction === "pii") {
               setIsPIIHashingEnabled(true);
+              // Save the PII scope based on current selections
+              setPiiScope({
+                mode: enableAllEnterprises ? 'all' : 'selected',
+                enterprises: enableAllEnterprises ? [...enterprises] : selectedEnterprises,
+                feeds: enableAllEnterprises ? [...feeds] : selectedFeeds
+              });
             } else if (currentAction === "content") {
               setIsContentStorageEnabled(true);
             }
