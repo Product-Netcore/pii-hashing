@@ -338,7 +338,7 @@ export function SettingsPage() {
             <Button onClick={() => {
             setShowPIINoteDialog(false);
             setShowPIIScopeDialog(true);
-          }}>CONTINUE</Button>
+          }}>Next</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
