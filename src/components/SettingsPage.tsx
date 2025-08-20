@@ -586,7 +586,7 @@ export function SettingsPage() {
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Verify & enable hashing</h3>
               <p className="text-sm text-muted-foreground mb-6">
-                Hey, before enabling / disabling encryption feature, we need to re-verify that you have access to this account. Please enter your account password to confirm.
+                To confirm please, verify your account. Hashing will be applied to selected enterprises and feed IDs on this panel.
               </p>
             </div>
 
