@@ -456,116 +456,102 @@ export function SettingsPage() {
               </div>
             </div>
 
-            {/* Checkbox for all enterprises */}
-            <div className="flex items-start space-x-2 text-left">
-              <Checkbox 
-                id="enable-all" 
-                checked={enableAllEnterprises}
-                onCheckedChange={(checked) => setEnableAllEnterprises(checked as boolean)}
-              />
-              <label htmlFor="enable-all" className="text-sm text-foreground">
-                PII Hashing will be enabled on all the Enterprises on this panel
-              </label>
-            </div>
-
-            {/* Conditional dropdowns */}
-            {!enableAllEnterprises && (
-              <div className="space-y-4">
-                <div className="text-left">
-                  <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
-                        {selectedEnterprises.length > 0 
-                          ? `${selectedEnterprises.length} enterprise(s) selected`
-                          : "Select enterprises..."
-                        }
-                        <ChevronDown className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
-                      <div className="p-2">
-                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+            {/* Enterprise and Feed selection */}
+            <div className="space-y-4">
+              <div className="text-left">
+                <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-between">
+                      {selectedEnterprises.length > 0 
+                        ? `${selectedEnterprises.length} enterprise(s) selected`
+                        : "Select enterprises..."
+                      }
+                      <ChevronDown className="h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                    <div className="p-2">
+                      <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                        <Checkbox 
+                          id="select-all-enterprises"
+                          checked={selectedEnterprises.length === enterprises.length}
+                          onCheckedChange={handleSelectAllEnterprises}
+                        />
+                        <label 
+                          htmlFor="select-all-enterprises" 
+                          className="text-sm font-medium cursor-pointer flex-1"
+                        >
+                          Select All
+                        </label>
+                      </div>
+                      {enterprises.map((enterprise) => (
+                        <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                           <Checkbox 
-                            id="select-all-enterprises"
-                            checked={selectedEnterprises.length === enterprises.length}
-                            onCheckedChange={handleSelectAllEnterprises}
+                            id={`enterprise-${enterprise}`}
+                            checked={selectedEnterprises.includes(enterprise)}
+                            onCheckedChange={() => handleEnterpriseToggle(enterprise)}
                           />
                           <label 
-                            htmlFor="select-all-enterprises" 
-                            className="text-sm font-medium cursor-pointer flex-1"
+                            htmlFor={`enterprise-${enterprise}`} 
+                            className="text-sm cursor-pointer flex-1"
                           >
-                            Select All
+                            {enterprise}
                           </label>
                         </div>
-                        {enterprises.map((enterprise) => (
-                          <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox 
-                              id={`enterprise-${enterprise}`}
-                              checked={selectedEnterprises.includes(enterprise)}
-                              onCheckedChange={() => handleEnterpriseToggle(enterprise)}
-                            />
-                            <label 
-                              htmlFor={`enterprise-${enterprise}`} 
-                              className="text-sm cursor-pointer flex-1"
-                            >
-                              {enterprise}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                <div className="text-left">
-                  <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
-                        {selectedFeeds.length > 0 
-                          ? `${selectedFeeds.length} feed(s) selected`
-                          : "Select feeds..."
-                        }
-                        <ChevronDown className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
-                      <div className="p-2">
-                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
-                          <Checkbox 
-                            id="select-all-feeds"
-                            checked={selectedFeeds.length === feeds.length}
-                            onCheckedChange={handleSelectAllFeeds}
-                          />
-                          <label 
-                            htmlFor="select-all-feeds" 
-                            className="text-sm font-medium cursor-pointer flex-1"
-                          >
-                            Select All
-                          </label>
-                        </div>
-                        {feeds.map((feed) => (
-                          <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox 
-                              id={`feed-${feed}`}
-                              checked={selectedFeeds.includes(feed)}
-                              onCheckedChange={() => handleFeedToggle(feed)}
-                            />
-                            <label 
-                              htmlFor={`feed-${feed}`} 
-                              className="text-sm cursor-pointer flex-1"
-                            >
-                              {feed}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
-            )}
+
+              <div className="text-left">
+                <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-between">
+                      {selectedFeeds.length > 0 
+                        ? `${selectedFeeds.length} feed(s) selected`
+                        : "Select feeds..."
+                      }
+                      <ChevronDown className="h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                    <div className="p-2">
+                      <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                        <Checkbox 
+                          id="select-all-feeds"
+                          checked={selectedFeeds.length === feeds.length}
+                          onCheckedChange={handleSelectAllFeeds}
+                        />
+                        <label 
+                          htmlFor="select-all-feeds" 
+                          className="text-sm font-medium cursor-pointer flex-1"
+                        >
+                          Select All
+                        </label>
+                      </div>
+                      {feeds.map((feed) => (
+                        <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                          <Checkbox 
+                            id={`feed-${feed}`}
+                            checked={selectedFeeds.includes(feed)}
+                            onCheckedChange={() => handleFeedToggle(feed)}
+                          />
+                          <label 
+                            htmlFor={`feed-${feed}`} 
+                            className="text-sm cursor-pointer flex-1"
+                          >
+                            {feed}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
           </div>
 
           <DialogFooter className="gap-3">
