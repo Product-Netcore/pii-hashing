@@ -7,8 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search, Info, X } from "lucide-react";
+import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
 const feeds = [
   "PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", 
   "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION",
@@ -49,7 +48,6 @@ const feedData = [{
   peId: "22222222222222222"
 }];
 export function SettingsPage() {
-  const { toast } = useToast();
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
   const [showPIIDialog, setShowPIIDialog] = useState(false);
@@ -68,17 +66,6 @@ export function SettingsPage() {
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   const [feedSearchQuery, setFeedSearchQuery] = useState("");
   const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
-  
-  // PII Hashing 3-step modal state
-  const [piiModalStep, setPiiModalStep] = useState<1 | 2 | 3 | null>(null);
-  const [piiConsentChecked, setPiiConsentChecked] = useState(false);
-  const [piiApplyToAll, setPiiApplyToAll] = useState(true);
-  const [piiSelectedEnterprises, setPiiSelectedEnterprises] = useState<string[]>([]);
-  const [piiFeedIds, setPiiFeedIds] = useState<string[]>([]);
-  const [piiPassword, setPiiPassword] = useState("");
-  const [piiPasswordError, setPiiPasswordError] = useState("");
-  const [piiIsLoading, setPiiIsLoading] = useState(false);
-  const [piiFeedIdInput, setPiiFeedIdInput] = useState("");
   
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
 
@@ -128,99 +115,6 @@ export function SettingsPage() {
 
   const handleSelectAllFeedsContent = (checked: boolean) => {
     setSelectedFeedsContent(checked ? [...feeds] : []);
-  };
-
-  // PII Hashing 3-step modal functions
-  const openPiiModal = () => {
-    setPiiModalStep(1);
-    setPiiConsentChecked(false);
-    setPiiPassword("");
-    setPiiPasswordError("");
-    setPiiIsLoading(false);
-  };
-
-  const closePiiModal = () => {
-    setPiiModalStep(null);
-    setPiiConsentChecked(false);
-    setPiiPassword("");
-    setPiiPasswordError("");
-    setPiiIsLoading(false);
-  };
-
-  const goToPiiStep2 = () => {
-    if (piiConsentChecked) {
-      setPiiModalStep(2);
-    }
-  };
-
-  const goToPiiStep3 = () => {
-    const hasValidScope = piiApplyToAll || (piiSelectedEnterprises.length > 0 && piiFeedIds.length > 0);
-    if (hasValidScope) {
-      setPiiModalStep(3);
-    }
-  };
-
-  const handlePiiEnterpriseToggle = (enterprise: string) => {
-    setPiiSelectedEnterprises(prev => 
-      prev.includes(enterprise) 
-        ? prev.filter(e => e !== enterprise)
-        : [...prev, enterprise]
-    );
-  };
-
-  const addPiiFeedId = () => {
-    const id = piiFeedIdInput.trim();
-    if (id && /^\d+$/.test(id) && !piiFeedIds.includes(id)) {
-      setPiiFeedIds(prev => [...prev, id]);
-      setPiiFeedIdInput("");
-    }
-  };
-
-  const removePiiFeedId = (id: string) => {
-    setPiiFeedIds(prev => prev.filter(f => f !== id));
-  };
-
-  const clearPiiScope = () => {
-    setPiiApplyToAll(true);
-    setPiiSelectedEnterprises([]);
-    setPiiFeedIds([]);
-  };
-
-  const enablePiiHashing = async () => {
-    if (!piiPassword) return;
-    
-    setPiiIsLoading(true);
-    setPiiPasswordError("");
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Simulate password validation (replace with actual validation)
-    if (piiPassword !== "password123") {
-      setPiiPasswordError("That password didn't match. Try again.");
-      setPiiIsLoading(false);
-      return;
-    }
-
-    // Success
-    setIsPIIHashingEnabled(true);
-    setEnableAllEnterprises(piiApplyToAll);
-    if (!piiApplyToAll) {
-      setSelectedEnterprises(piiSelectedEnterprises);
-      setSelectedFeeds(piiFeedIds);
-    }
-    
-    closePiiModal();
-
-    // Show success toast
-    const scopeSummary = piiApplyToAll 
-      ? `all enterprises on this panel and ${piiFeedIds.length} feed IDs`
-      : `${piiSelectedEnterprises.length} selected enterprises and ${piiFeedIds.length} feed IDs`;
-    
-    toast({
-      title: "PII Hashing enabled",
-      description: `Now active for ${scopeSummary}. Applies to new data only.`,
-    });
   };
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
@@ -314,21 +208,68 @@ export function SettingsPage() {
                       : "Enhanced protection of customer privacy with hashing customer's numbers."
                     }
                   </p>
-                  {isPIIHashingEnabled && (
+                  {isPIIHashingEnabled && !enableAllEnterprises && (
                     <div className="mt-3">
-                      <div className="text-sm text-muted-foreground mb-2">
-                        Scope: {enableAllEnterprises ? "All enterprises" : `${selectedEnterprises.length} selected enterprises`} • {selectedFeeds.length} Feed IDs
-                        {!enableAllEnterprises && (
-                          <button 
-                            onClick={() => setPiiModalStep(2)}
-                            className="ml-2 text-blue-600 hover:text-blue-700 underline"
-                          >
-                            Manage scope
-                          </button>
+                      <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedFeeds.slice(0, 5).map(feed => (
+                          <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                        ))}
+                        {selectedFeeds.length > 5 && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <button className="inline-flex">
+                                <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
+                                  +{selectedFeeds.length - 5} more
+                                </Badge>
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-96">
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <h4 className="text-sm font-medium">Selected Feeds</h4>
+                                  <Badge variant="secondary" className="text-xs">
+                                    {selectedFeeds.length} total
+                                  </Badge>
+                                </div>
+                                
+                                {selectedFeeds.length > 10 && (
+                                  <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                    <Input
+                                      placeholder="Search feeds..."
+                                      value={feedSearchQuery}
+                                      onChange={(e) => setFeedSearchQuery(e.target.value)}
+                                      className="pl-10 h-8 text-sm"
+                                    />
+                                  </div>
+                                )}
+                                
+                                <div className="max-h-60 overflow-y-auto">
+                                  <div className="flex flex-wrap gap-2">
+                                    {(feedSearchQuery ? 
+                                      selectedFeeds.filter(feed => 
+                                        feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                                      ) : selectedFeeds
+                                    ).map(feed => (
+                                      <Badge key={feed} variant="outline" className="text-xs">
+                                        {feed}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                  
+                                  {feedSearchQuery && selectedFeeds.filter(feed => 
+                                    feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                                  ).length === 0 && (
+                                    <div className="text-center py-4 text-sm text-muted-foreground">
+                                      No feeds found matching "{feedSearchQuery}"
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         )}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Effective for new incoming data.
                       </div>
                     </div>
                   )}
@@ -348,7 +289,7 @@ export function SettingsPage() {
                     size="sm" 
                     variant="outline"
                     className={`min-w-[80px] ${isPIIHashingEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`}
-                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : openPiiModal()}
+                    onClick={() => isPIIHashingEnabled ? setIsPIIHashingEnabled(false) : setShowPIIDialog(true)}
                   >
                     {isPIIHashingEnabled ? "DISABLE" : "ENABLE"}
                   </Button>
@@ -480,230 +421,161 @@ export function SettingsPage() {
         </Button>
       </div>
 
-      {/* PII Hashing 3-Step Modal Flow */}
-      {/* Modal 1: Notes & Consent */}
-      <Dialog open={piiModalStep === 1} onOpenChange={(open) => !open && closePiiModal()}>
+      {/* PII Hashing Dialog */}
+      <Dialog open={showPIIDialog} onOpenChange={setShowPIIDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Enable PII Hashing — Please Review</DialogTitle>
+            <DialogTitle className="sr-only">Enable PII Hashing</DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-6">
-            <div className="flex items-start gap-3">
-              <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div className="space-y-3">
-                <p className="text-sm text-muted-foreground">
-                  Once hashing is activated, data ingested after activation will be hashed and cannot be decrypted to the original value.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Hashing does not affect existing data. It only applies to data received after activation.
-                </p>
+          <div className="text-center space-y-6">
+            {/* Illustration */}
+            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
               </div>
             </div>
 
-            <div className="flex items-start space-x-3">
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
+              <div className="text-left space-y-2">
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    Once hashing is activated, the data cannot be decrypted to the original value.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-sm text-muted-foreground">
+                    Hashing is only applicable to the data which is received post activating of hashing.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Checkbox for all enterprises */}
+            <div className="flex items-start space-x-2 text-left">
               <Checkbox 
-                id="pii-consent" 
-                checked={piiConsentChecked}
-                onCheckedChange={(checked) => setPiiConsentChecked(checked as boolean)}
+                id="enable-all" 
+                checked={enableAllEnterprises}
+                onCheckedChange={(checked) => setEnableAllEnterprises(checked as boolean)}
               />
-              <label htmlFor="pii-consent" className="text-sm text-foreground leading-5">
-                I understand that enabling PII hashing is irreversible for newly ingested data.
+              <label htmlFor="enable-all" className="text-sm text-foreground">
+                PII Hashing will be enabled on all the Enterprises on this panel
               </label>
             </div>
-          </div>
 
-          <DialogFooter className="gap-3">
-            <Button variant="outline" onClick={closePiiModal}>
-              Cancel
-            </Button>
-            <Button 
-              onClick={goToPiiStep2}
-              disabled={!piiConsentChecked}
-            >
-              Next
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal 2: Configure Scope */}
-      <Dialog open={piiModalStep === 2} onOpenChange={(open) => !open && closePiiModal()}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Choose where hashing applies</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Checkbox 
-                  id="apply-to-all" 
-                  checked={piiApplyToAll}
-                  onCheckedChange={(checked) => setPiiApplyToAll(checked as boolean)}
-                />
-                <div>
-                  <label htmlFor="apply-to-all" className="text-sm font-medium">
-                    Apply to all enterprises on this panel
-                  </label>
-                  <p className="text-xs text-muted-foreground">
-                    Turn off to target specific enterprises.
-                  </p>
-                </div>
-              </div>
-
-              {!piiApplyToAll && (
-                <div className="pl-6 space-y-4">
-                  <div>
-                    <Label className="text-sm font-medium">Enterprises</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="outline" className="w-full justify-between mt-1">
-                          {piiSelectedEnterprises.length > 0 
-                            ? `${piiSelectedEnterprises.length} enterprise(s) selected`
-                            : "Select enterprises..."
-                          }
-                          <ChevronDown className="h-4 w-4 opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0" align="start">
-                        <div className="p-2">
-                          {enterprises.map((enterprise) => (
-                            <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                              <Checkbox 
-                                id={`pii-enterprise-${enterprise}`}
-                                checked={piiSelectedEnterprises.includes(enterprise)}
-                                onCheckedChange={() => handlePiiEnterpriseToggle(enterprise)}
-                              />
-                              <label 
-                                htmlFor={`pii-enterprise-${enterprise}`} 
-                                className="text-sm cursor-pointer flex-1"
-                              >
-                                {enterprise}
-                              </label>
-                            </div>
-                          ))}
+            {/* Conditional dropdowns */}
+            {!enableAllEnterprises && (
+              <div className="space-y-4">
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedEnterprises.length > 0 
+                          ? `${selectedEnterprises.length} enterprise(s) selected`
+                          : "Select enterprises..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                      <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-enterprises"
+                            checked={selectedEnterprises.length === enterprises.length}
+                            onCheckedChange={handleSelectAllEnterprises}
+                          />
+                          <label 
+                            htmlFor="select-all-enterprises" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
                         </div>
-                      </PopoverContent>
-                    </Popover>
-                    {!piiApplyToAll && piiSelectedEnterprises.length === 0 && (
-                      <p className="text-xs text-red-600 mt-1">
-                        Select at least one enterprise or re-enable 'Apply to all enterprises'.
-                      </p>
-                    )}
-                  </div>
+                        {enterprises.map((enterprise) => (
+                          <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`enterprise-${enterprise}`}
+                              checked={selectedEnterprises.includes(enterprise)}
+                              onCheckedChange={() => handleEnterpriseToggle(enterprise)}
+                            />
+                            <label 
+                              htmlFor={`enterprise-${enterprise}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {enterprise}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
-              )}
 
-              <div>
-                <Label className="text-sm font-medium">Feed IDs</Label>
-                <p className="text-xs text-muted-foreground mb-2">
-                  Add one or more Feed IDs (e.g., 101, 202, 303).
-                </p>
-                <div className="flex gap-2 mb-2">
-                  <Input
-                    placeholder="Enter Feed ID"
-                    value={piiFeedIdInput}
-                    onChange={(e) => setPiiFeedIdInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && addPiiFeedId()}
-                    className="flex-1"
-                  />
-                  <Button onClick={addPiiFeedId} size="sm">
-                    Add
-                  </Button>
+                <div className="text-left">
+                  <label className="text-sm font-medium text-foreground mb-2 block">Select Feeds:</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-between">
+                        {selectedFeeds.length > 0 
+                          ? `${selectedFeeds.length} feed(s) selected`
+                          : "Select feeds..."
+                        }
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                      <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-feeds"
+                            checked={selectedFeeds.length === feeds.length}
+                            onCheckedChange={handleSelectAllFeeds}
+                          />
+                          <label 
+                            htmlFor="select-all-feeds" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
+                        </div>
+                        {feeds.map((feed) => (
+                          <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox 
+                              id={`feed-${feed}`}
+                              checked={selectedFeeds.includes(feed)}
+                              onCheckedChange={() => handleFeedToggle(feed)}
+                            />
+                            <label 
+                              htmlFor={`feed-${feed}`} 
+                              className="text-sm cursor-pointer flex-1"
+                            >
+                              {feed}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
-                {piiFeedIds.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {piiFeedIds.map((id) => (
-                      <Badge key={id} variant="secondary" className="text-xs">
-                        {id}
-                        <button
-                          onClick={() => removePiiFeedId(id)}
-                          className="ml-1 hover:text-red-600"
-                        >
-                          <X className="h-3 w-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
-                )}
               </div>
-
-              {(piiApplyToAll || piiSelectedEnterprises.length > 0) && piiFeedIds.length > 0 && (
-                <div className="p-3 bg-muted/50 rounded-lg">
-                  <p className="text-sm font-medium text-foreground">Preview:</p>
-                  <p className="text-xs text-muted-foreground">
-                    Scope: {piiApplyToAll ? "All enterprises" : `${piiSelectedEnterprises.length} selected enterprises`} • {piiFeedIds.length} Feed IDs
-                  </p>
-                </div>
-              )}
-            </div>
+            )}
           </div>
 
           <DialogFooter className="gap-3">
-            <Button variant="link" onClick={clearPiiScope}>
-              Clear all
+            <Button variant="outline" onClick={() => setShowPIIDialog(false)}>
+              CANCEL
             </Button>
-            <Button variant="outline" onClick={() => setPiiModalStep(1)}>
-              Back
-            </Button>
-            <Button 
-              onClick={goToPiiStep3}
-              disabled={!piiApplyToAll && (piiSelectedEnterprises.length === 0 || piiFeedIds.length === 0)}
-            >
-              Next
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal 3: Authorization */}
-      <Dialog open={piiModalStep === 3} onOpenChange={(open) => !open && closePiiModal()}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Confirm & Enable Hashing</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            <p className="text-sm text-muted-foreground">
-              To confirm, please verify your account. Hashing will be applied to{" "}
-              {piiApplyToAll 
-                ? `all enterprises on this panel and ${piiFeedIds.length} feed IDs`
-                : `${piiSelectedEnterprises.length} selected enterprises and ${piiFeedIds.length} feed IDs`}.
-            </p>
-
-            <div className="space-y-2">
-              <Label htmlFor="pii-password" className="text-sm font-medium">
-                Password <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="pii-password"
-                type="password"
-                value={piiPassword}
-                onChange={(e) => setPiiPassword(e.target.value)}
-                placeholder="Re-enter your account password to confirm this security change."
-              />
-              <p className="text-xs text-muted-foreground">
-                Re-enter your account password to confirm this security change.
-              </p>
-              {piiPasswordError && (
-                <p className="text-xs text-red-600">{piiPasswordError}</p>
-              )}
-            </div>
-          </div>
-
-          <DialogFooter className="gap-3">
-            <Button variant="link" onClick={closePiiModal}>
-              Cancel
-            </Button>
-            <Button variant="outline" onClick={() => setPiiModalStep(2)}>
-              Back
-            </Button>
-            <Button 
-              onClick={enablePiiHashing}
-              disabled={!piiPassword || piiIsLoading}
-            >
-              {piiIsLoading ? "Enabling..." : "Enable Hashing"}
+            <Button onClick={() => {
+              setShowPIIDialog(false);
+              setCurrentAction("pii");
+              setShowAuthDialog(true);
+            }}>
+              ENABLE HASHING
             </Button>
           </DialogFooter>
         </DialogContent>
