@@ -623,7 +623,7 @@ export function SettingsPage() {
             setShowPassword(false);
             setCurrentAction(null);
           }}>
-              AUTHORIZE
+              verify and enable hashing
             </Button>
           </DialogFooter>
         </DialogContent>
