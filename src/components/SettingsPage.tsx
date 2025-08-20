@@ -72,6 +72,22 @@ export function SettingsPage() {
         : [...prev, feed]
     );
   };
+
+  const handleSelectAllEnterprises = (checked: boolean) => {
+    setSelectedEnterprises(checked ? [...enterprises] : []);
+  };
+
+  const handleSelectAllFeeds = (checked: boolean) => {
+    setSelectedFeeds(checked ? [...feeds] : []);
+  };
+
+  const handleSelectAllEnterprisesContent = (checked: boolean) => {
+    setSelectedEnterprisesContent(checked ? [...enterprises] : []);
+  };
+
+  const handleSelectAllFeedsContent = (checked: boolean) => {
+    setSelectedFeedsContent(checked ? [...feeds] : []);
+  };
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
@@ -437,6 +453,19 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-enterprises"
+                            checked={selectedEnterprises.length === enterprises.length}
+                            onCheckedChange={handleSelectAllEnterprises}
+                          />
+                          <label 
+                            htmlFor="select-all-enterprises" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
+                        </div>
                         {enterprises.map((enterprise) => (
                           <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                             <Checkbox 
@@ -471,6 +500,19 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-feeds"
+                            checked={selectedFeeds.length === feeds.length}
+                            onCheckedChange={handleSelectAllFeeds}
+                          />
+                          <label 
+                            htmlFor="select-all-feeds" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
+                        </div>
                         {feeds.map((feed) => (
                           <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                             <Checkbox 
@@ -571,6 +613,19 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-enterprises-content"
+                            checked={selectedEnterprisesContent.length === enterprises.length}
+                            onCheckedChange={handleSelectAllEnterprisesContent}
+                          />
+                          <label 
+                            htmlFor="select-all-enterprises-content" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
+                        </div>
                         {enterprises.map((enterprise) => (
                           <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                             <Checkbox 
@@ -605,6 +660,19 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
+                          <Checkbox 
+                            id="select-all-feeds-content"
+                            checked={selectedFeedsContent.length === feeds.length}
+                            onCheckedChange={handleSelectAllFeedsContent}
+                          />
+                          <label 
+                            htmlFor="select-all-feeds-content" 
+                            className="text-sm font-medium cursor-pointer flex-1"
+                          >
+                            Select All
+                          </label>
+                        </div>
                         {feeds.map((feed) => (
                           <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                             <Checkbox 
