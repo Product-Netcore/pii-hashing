@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff } from "lucide-react";
+import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
   peId: "58498958949549954"
@@ -35,6 +35,8 @@ export function SettingsPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
+  const [feedSearchQuery, setFeedSearchQuery] = useState("");
+  const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
   
   const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
   const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED"];
@@ -176,13 +178,47 @@ export function SettingsPage() {
                                 +{selectedFeeds.length - 5} more
                               </Badge>
                             </PopoverTrigger>
-                            <PopoverContent className="w-80 p-3" align="start">
-                              <div className="space-y-2">
-                                <h4 className="text-sm font-medium">All Selected Feeds:</h4>
-                                <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-                                  {selectedFeeds.map(feed => (
-                                    <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                                  ))}
+                            <PopoverContent className="w-96">
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <h4 className="text-sm font-medium">Selected Feeds</h4>
+                                  <Badge variant="secondary" className="text-xs">
+                                    {selectedFeeds.length} total
+                                  </Badge>
+                                </div>
+                                
+                                {selectedFeeds.length > 10 && (
+                                  <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                    <Input
+                                      placeholder="Search feeds..."
+                                      value={feedSearchQuery}
+                                      onChange={(e) => setFeedSearchQuery(e.target.value)}
+                                      className="pl-10 h-8 text-sm"
+                                    />
+                                  </div>
+                                )}
+                                
+                                <div className="max-h-60 overflow-y-auto">
+                                  <div className="flex flex-wrap gap-2">
+                                    {(feedSearchQuery ? 
+                                      selectedFeeds.filter(feed => 
+                                        feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                                      ) : selectedFeeds
+                                    ).map(feed => (
+                                      <Badge key={feed} variant="outline" className="text-xs">
+                                        {feed}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                  
+                                  {feedSearchQuery && selectedFeeds.filter(feed => 
+                                    feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                                  ).length === 0 && (
+                                    <div className="text-center py-4 text-sm text-muted-foreground">
+                                      No feeds found matching "{feedSearchQuery}"
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </PopoverContent>
@@ -240,13 +276,47 @@ export function SettingsPage() {
                                 +{selectedFeedsContent.length - 5} more
                               </Badge>
                             </PopoverTrigger>
-                            <PopoverContent className="w-80 p-3" align="start">
-                              <div className="space-y-2">
-                                <h4 className="text-sm font-medium">All Selected Feeds:</h4>
-                                <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-                                  {selectedFeedsContent.map(feed => (
-                                    <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>
-                                  ))}
+                            <PopoverContent className="w-96">
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <h4 className="text-sm font-medium">Selected Feeds</h4>
+                                  <Badge variant="secondary" className="text-xs">
+                                    {selectedFeedsContent.length} total
+                                  </Badge>
+                                </div>
+                                
+                                {selectedFeedsContent.length > 10 && (
+                                  <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                    <Input
+                                      placeholder="Search feeds..."
+                                      value={contentFeedSearchQuery}
+                                      onChange={(e) => setContentFeedSearchQuery(e.target.value)}
+                                      className="pl-10 h-8 text-sm"
+                                    />
+                                  </div>
+                                )}
+                                
+                                <div className="max-h-60 overflow-y-auto">
+                                  <div className="flex flex-wrap gap-2">
+                                    {(contentFeedSearchQuery ? 
+                                      selectedFeedsContent.filter(feed => 
+                                        feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                                      ) : selectedFeedsContent
+                                    ).map(feed => (
+                                      <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">
+                                        {feed}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                  
+                                  {contentFeedSearchQuery && selectedFeedsContent.filter(feed => 
+                                    feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                                  ).length === 0 && (
+                                    <div className="text-center py-4 text-sm text-muted-foreground">
+                                      No feeds found matching "{contentFeedSearchQuery}"
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </PopoverContent>
