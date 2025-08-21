@@ -12,7 +12,7 @@ import { ConfirmationIllustration } from "@/components/illustrations/Confirmatio
 
 const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION", "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS", "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT", "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE", "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT", "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION", "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED", "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT", "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE", "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED", "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT", "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY", "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE", "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED", "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT", "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE", "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED", "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED", "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED", "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION", "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED", "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST", "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED", "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY", "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"];
 const feedData = [{
-  feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+95 more"],
+  feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+1 others"],
   peId: "58498958949549954"
 }, {
   feeds: ["SmartechQ...", "ALRT_1688..."],
@@ -139,27 +139,11 @@ export function SettingsPage() {
 
               <div className="divide-y divide-border">
                 {feedData.map((row, index) => <div key={index} className="grid grid-cols-2 gap-4 p-4">
-                  <div className="flex flex-wrap gap-2">
-                    {row.feeds.map((feed, feedIndex) => {
-                      if (feed.startsWith("+") && feed.includes("more")) {
-                        return (
-                          <a 
-                            key={feedIndex} 
-                            href="#" 
-                            className="text-xs underline hover:no-underline"
-                            style={{ color: '#143F93' }}
-                          >
-                            {feed}
-                          </a>
-                        );
-                      }
-                      return (
-                        <Badge key={feedIndex} variant="pill" className="text-xs">
+                    <div className="flex flex-wrap gap-2">
+                      {row.feeds.map((feed, feedIndex) => <Badge key={feedIndex} variant="pill" className="text-xs">
                           {feed}
-                        </Badge>
-                      );
-                    })}
-                  </div>
+                        </Badge>)}
+                    </div>
                     <div className="text-sm text-foreground font-mono">
                       {row.peId}
                     </div>
@@ -204,13 +188,9 @@ export function SettingsPage() {
                           {piiScope.feeds.length > 5 && <Popover>
                               <PopoverTrigger asChild>
                                 <button className="inline-flex">
-                                  <a 
-                                    href="#" 
-                                    className="text-xs underline hover:no-underline"
-                                    style={{ color: '#143F93' }}
-                                  >
+                                  <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
                                     +{piiScope.feeds.length - 5} more
-                                  </a>
+                                  </Badge>
                                 </button>
                               </PopoverTrigger>
                               <PopoverContent className="w-96">
@@ -348,18 +328,18 @@ export function SettingsPage() {
 
       {/* PII Hashing Note Dialog */}
       <Dialog open={showPIINoteDialog} onOpenChange={setShowPIINoteDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">PII Hashing Notes</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6">
+          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
             {/* Illustration */}
             <ConfirmationIllustration className="mx-auto" />
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
-              <div className="text-left space-y-2">
+              <div className="text-left space-y-3">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
@@ -376,7 +356,7 @@ export function SettingsPage() {
             </div>
           </div>
 
-          <DialogFooter className="gap-3">
+          <DialogFooter className="gap-3 px-6 pb-6">
             <Button variant="outline" onClick={() => setShowPIINoteDialog(false)}>
               Cancel
             </Button>
@@ -390,12 +370,12 @@ export function SettingsPage() {
 
       {/* PII Hashing Scope Dialog */}
       <Dialog open={showPIIScopeDialog} onOpenChange={setShowPIIScopeDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Select Enterprises and Feeds</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6">
+          <div className="text-center space-y-6 flex-1 flex flex-col px-6 pt-6">
             {/* Illustration */}
             <ConfirmationIllustration className="mx-auto" />
 
@@ -404,7 +384,7 @@ export function SettingsPage() {
             </div>
 
             {/* Enterprise and Feed selection */}
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1">
               <div className="text-left">
                 <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                 <Popover>
@@ -503,7 +483,7 @@ export function SettingsPage() {
              </div>
            </div>
 
-           <DialogFooter className="gap-3">
+          <DialogFooter className="gap-3 px-6 pb-6">
             
             <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
               Cancel
@@ -519,12 +499,12 @@ export function SettingsPage() {
 
       {/* Content Storage Dialog */}
       <Dialog open={showContentDialog} onOpenChange={setShowContentDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Disable Message Content Storage</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6">
+          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
             {/* Illustration */}
             <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
               <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -534,7 +514,7 @@ export function SettingsPage() {
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
-              <div className="text-left space-y-2">
+              <div className="text-left space-y-3">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
@@ -551,7 +531,7 @@ export function SettingsPage() {
             </div>
 
             {/* Checkbox for all enterprises */}
-            <div className="flex items-start space-x-2 text-left">
+            <div className="flex items-start space-x-2 text-left w-full max-w-sm mx-auto">
               <Checkbox id="enable-all-content" checked={enableAllEnterprisesContent} onCheckedChange={checked => setEnableAllEnterprisesContent(checked as boolean)} />
               <label htmlFor="enable-all-content" className="text-sm text-foreground">
                 Content storage will be disabled on all the Enterprises on this panel
@@ -559,7 +539,7 @@ export function SettingsPage() {
             </div>
 
             {/* Conditional dropdowns */}
-            {!enableAllEnterprisesContent && <div className="space-y-4">
+            {!enableAllEnterprisesContent && <div className="space-y-4 w-full max-w-sm mx-auto">
                 <div className="text-left">
                   <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                   <Popover>
@@ -658,7 +638,7 @@ export function SettingsPage() {
               </div>}
           </div>
 
-          <DialogFooter className="gap-3">
+          <DialogFooter className="gap-3 px-6 pb-6">
             <Button variant="outline" onClick={() => setShowContentDialog(false)}>
               Cancel
             </Button>
@@ -675,12 +655,12 @@ export function SettingsPage() {
 
       {/* Authorization Dialog */}
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Verify & enable hashing</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6">
+          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
             {/* Illustration */}
             <div className="mx-auto">
               <img
@@ -700,7 +680,7 @@ export function SettingsPage() {
             </div>
 
             {/* Password Input */}
-            <div className="text-left space-y-2">
+            <div className="text-left space-y-2 w-full max-w-sm mx-auto">
               <Label htmlFor="password" className="text-sm font-medium text-primary">
                 Password *
               </Label>
@@ -713,7 +693,7 @@ export function SettingsPage() {
             </div>
           </div>
 
-          <DialogFooter className="gap-3">
+          <DialogFooter className="gap-3 px-6 pb-6">
             <Button variant="outline" onClick={() => {
             setShowAuthDialog(false);
             setPassword("");
