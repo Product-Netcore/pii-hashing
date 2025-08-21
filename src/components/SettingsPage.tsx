@@ -377,11 +377,7 @@ export function SettingsPage() {
           
           <div className="text-center space-y-6">
             {/* Illustration */}
-            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
-              </div>
-            </div>
+            <ConfirmationIllustration className="mx-auto" />
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Choose where hashing applies</h3>
@@ -670,8 +666,8 @@ export function SettingsPage() {
               <img
                 src="/lovable-uploads/924c767e-c699-40d3-a22c-f106977496dc.png"
                 alt=""
-                width={96}
-                height={96}
+                width={244}
+                height={190}
                 className="mx-auto object-contain"
               />
             </div>
