@@ -143,14 +143,30 @@ export function SettingsPage() {
                     {row.feeds.map((feed, feedIndex) => {
                       if (feed.startsWith("+") && feed.includes("more")) {
                         return (
-                          <button 
-                            key={feedIndex} 
-                            className="text-xs underline hover:no-underline cursor-pointer"
-                            style={{ color: '#143F93' }}
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            {feed}
-                          </button>
+                          <Popover key={feedIndex}>
+                            <PopoverTrigger asChild>
+                              <button 
+                                type="button"
+                                className="text-xs underline hover:no-underline cursor-pointer"
+                                style={{ color: '#143F93' }}
+                              >
+                                {feed}
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80 z-50 bg-background border border-border shadow-md">
+                              <div className="space-y-2">
+                                <h4 className="text-sm font-medium">Additional feeds</h4>
+                                <div className="max-h-48 overflow-y-auto">
+                                  <div className="flex flex-wrap gap-2">
+                                    {feeds.slice(6, 24).map(f => (
+                                      <Badge key={f} variant="outline" className="text-xs">{f}</Badge>
+                                    ))}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground mt-2">+95 others not shown</div>
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         );
                       }
                       return (
@@ -203,17 +219,15 @@ export function SettingsPage() {
                           {piiScope.feeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
                           {piiScope.feeds.length > 5 && <Popover>
                               <PopoverTrigger asChild>
-                                <button className="inline-flex">
-                                  <a 
-                                    className="text-xs underline hover:no-underline cursor-pointer"
-                                    style={{ color: '#143F93' }}
-                                    onClick={(e) => e.preventDefault()}
-                                  >
-                                    +{piiScope.feeds.length - 5} more
-                                  </a>
+                                <button 
+                                  type="button"
+                                  className="text-xs underline hover:no-underline cursor-pointer"
+                                  style={{ color: '#143F93' }}
+                                >
+                                  +{piiScope.feeds.length - 5} more
                                 </button>
                               </PopoverTrigger>
-                              <PopoverContent className="w-96">
+                              <PopoverContent className="w-96 z-50 bg-background border border-border shadow-md">
                                 <div className="space-y-3">
                                   <div className="flex items-center justify-between">
                                     <h4 className="text-sm font-medium">Selected Feeds</h4>
