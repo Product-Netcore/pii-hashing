@@ -9,18 +9,13 @@ type Props = {
 export function ConfirmationIllustration({ width = 244, height = 190, className }: Props) {
   return (
     <div className={className} aria-hidden="true">
-      <div
-        style={{ width: `${width}px`, height: `${height}px` }}
-        className="mx-auto bg-blue-50 rounded-lg flex items-center justify-center"
-      >
-        <div className="text-xs text-muted-foreground text-center p-4">
-          Confirmation Illustration
-          <br />
-          {width}x{height}
-          <br />
-          <span className="text-xs opacity-75">SVG markup needed</span>
-        </div>
-      </div>
+      <img
+        src="/lovable-uploads/d3efabe8-9ff6-4127-a291-fdfebee81fe7.png"
+        alt=""
+        width={width}
+        height={height}
+        className="mx-auto object-contain"
+      />
     </div>
   );
 }
