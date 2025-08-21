@@ -42,6 +42,8 @@ export function SettingsPage() {
   const [currentAction, setCurrentAction] = useState<"pii" | "content" | null>(null);
   const [feedSearchQuery, setFeedSearchQuery] = useState("");
   const [contentFeedSearchQuery, setContentFeedSearchQuery] = useState("");
+  const [enterpriseSearchQuery, setEnterpriseSearchQuery] = useState("");
+  const [contentEnterpriseSearchQuery, setContentEnterpriseSearchQuery] = useState("");
   // Single source of truth for PII scope
   const [piiScope, setPiiScope] = useState<{ mode: 'all' | 'selected'; enterprises: string[]; feeds: string[] }>({ 
     mode: 'all', 
@@ -398,18 +400,38 @@ export function SettingsPage() {
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
+                      <div className="relative mb-2">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search enterprises..."
+                          value={enterpriseSearchQuery}
+                          onChange={(e) => setEnterpriseSearchQuery(e.target.value)}
+                          className="pl-10 h-8 text-sm"
+                        />
+                      </div>
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                         <Checkbox id="select-all-enterprises" checked={selectedEnterprises.length === enterprises.length} onCheckedChange={handleSelectAllEnterprises} />
                         <label htmlFor="select-all-enterprises" className="text-sm font-medium cursor-pointer flex-1">
                           Select All
                         </label>
                       </div>
-                      {enterprises.map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                          <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
-                          <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
-                            {enterprise}
-                          </label>
-                        </div>)}
+                      <div className="max-h-60 overflow-y-auto">
+                        {enterprises.filter(enterprise => 
+                          enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
+                        ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
+                            <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
+                              {enterprise}
+                            </label>
+                          </div>)}
+                        {enterpriseSearchQuery && enterprises.filter(enterprise => 
+                          enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
+                        ).length === 0 && (
+                          <div className="text-center py-4 text-sm text-muted-foreground">
+                            No enterprises found matching "{enterpriseSearchQuery}"
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -426,18 +448,38 @@ export function SettingsPage() {
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
+                      <div className="relative mb-2">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search feeds..."
+                          value={feedSearchQuery}
+                          onChange={(e) => setFeedSearchQuery(e.target.value)}
+                          className="pl-10 h-8 text-sm"
+                        />
+                      </div>
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                         <Checkbox id="select-all-feeds" checked={selectedFeeds.length === feeds.length} onCheckedChange={handleSelectAllFeeds} />
                         <label htmlFor="select-all-feeds" className="text-sm font-medium cursor-pointer flex-1">
                           Select All
                         </label>
                       </div>
-                      {feeds.map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                          <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
-                          <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
-                            {feed}
-                          </label>
-                        </div>)}
+                      <div className="max-h-60 overflow-y-auto">
+                        {feeds.filter(feed => 
+                          feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                        ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
+                            <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
+                              {feed}
+                            </label>
+                          </div>)}
+                        {feedSearchQuery && feeds.filter(feed => 
+                          feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                        ).length === 0 && (
+                          <div className="text-center py-4 text-sm text-muted-foreground">
+                            No feeds found matching "{feedSearchQuery}"
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </PopoverContent>
                  </Popover>
@@ -513,18 +555,38 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="relative mb-2">
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            placeholder="Search enterprises..."
+                            value={contentEnterpriseSearchQuery}
+                            onChange={(e) => setContentEnterpriseSearchQuery(e.target.value)}
+                            className="pl-10 h-8 text-sm"
+                          />
+                        </div>
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                           <Checkbox id="select-all-enterprises-content" checked={selectedEnterprisesContent.length === enterprises.length} onCheckedChange={handleSelectAllEnterprisesContent} />
                           <label htmlFor="select-all-enterprises-content" className="text-sm font-medium cursor-pointer flex-1">
                             Select All
                           </label>
                         </div>
-                        {enterprises.map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
-                            <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
-                              {enterprise}
-                            </label>
-                          </div>)}
+                        <div className="max-h-60 overflow-y-auto">
+                          {enterprises.filter(enterprise => 
+                            enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
+                          ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                              <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
+                              <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
+                                {enterprise}
+                              </label>
+                            </div>)}
+                          {contentEnterpriseSearchQuery && enterprises.filter(enterprise => 
+                            enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
+                          ).length === 0 && (
+                            <div className="text-center py-4 text-sm text-muted-foreground">
+                              No enterprises found matching "{contentEnterpriseSearchQuery}"
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -541,18 +603,38 @@ export function SettingsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
+                        <div className="relative mb-2">
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            placeholder="Search feeds..."
+                            value={contentFeedSearchQuery}
+                            onChange={(e) => setContentFeedSearchQuery(e.target.value)}
+                            className="pl-10 h-8 text-sm"
+                          />
+                        </div>
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                           <Checkbox id="select-all-feeds-content" checked={selectedFeedsContent.length === feeds.length} onCheckedChange={handleSelectAllFeedsContent} />
                           <label htmlFor="select-all-feeds-content" className="text-sm font-medium cursor-pointer flex-1">
                             Select All
                           </label>
                         </div>
-                        {feeds.map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
-                            <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
-                              {feed}
-                            </label>
-                          </div>)}
+                        <div className="max-h-60 overflow-y-auto">
+                          {feeds.filter(feed => 
+                            feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                          ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                              <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
+                              <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
+                                {feed}
+                              </label>
+                            </div>)}
+                          {contentFeedSearchQuery && feeds.filter(feed => 
+                            feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                          ).length === 0 && (
+                            <div className="text-center py-4 text-sm text-muted-foreground">
+                              No feeds found matching "{contentFeedSearchQuery}"
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </PopoverContent>
                   </Popover>
