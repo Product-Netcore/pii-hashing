@@ -9,10 +9,7 @@ type Props = {
 export function ConfirmationIllustration({ width = 244, height = 190, className }: Props) {
   return (
     <div className={className} aria-hidden="true">
-      
-      /* {/* TODO: Replace this placeholder with the actual SVG markup */}
-      {/* The user needs to provide the complete <svg>...</svg> code */} */
-      <div 
+      <div
         style={{ width: `${width}px`, height: `${height}px` }}
         className="mx-auto bg-blue-50 rounded-lg flex items-center justify-center"
       >
