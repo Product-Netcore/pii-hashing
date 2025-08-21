@@ -189,7 +189,7 @@ export function SettingsPage() {
                               <PopoverTrigger asChild>
                                 <button className="inline-flex">
                                   <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
-                                    +{piiScope.feeds.length - 5} more
+                                    +{piiScope.feeds.length - 5} others
                                   </Badge>
                                 </button>
                               </PopoverTrigger>
