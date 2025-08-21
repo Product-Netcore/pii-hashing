@@ -143,14 +143,14 @@ export function SettingsPage() {
                     {row.feeds.map((feed, feedIndex) => {
                       if (feed.startsWith("+") && feed.includes("more")) {
                         return (
-                          <a 
+                          <button 
                             key={feedIndex} 
-                            href="#" 
-                            className="text-xs underline hover:no-underline"
+                            className="text-xs underline hover:no-underline cursor-pointer"
                             style={{ color: '#143F93' }}
+                            onClick={(e) => e.preventDefault()}
                           >
                             {feed}
-                          </a>
+                          </button>
                         );
                       }
                       return (
@@ -205,9 +205,9 @@ export function SettingsPage() {
                               <PopoverTrigger asChild>
                                 <button className="inline-flex">
                                   <a 
-                                    href="#" 
-                                    className="text-xs underline hover:no-underline"
+                                    className="text-xs underline hover:no-underline cursor-pointer"
                                     style={{ color: '#143F93' }}
+                                    onClick={(e) => e.preventDefault()}
                                   >
                                     +{piiScope.feeds.length - 5} more
                                   </a>
