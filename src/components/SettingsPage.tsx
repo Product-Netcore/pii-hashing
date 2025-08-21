@@ -666,15 +666,14 @@ export function SettingsPage() {
           
           <div className="text-center space-y-6">
             {/* Illustration */}
-            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                <div className="relative">
-                  <div className="w-8 h-5 bg-white rounded border-2 border-primary/60"></div>
-                  <div className="absolute top-1 left-1 w-1 h-1 bg-primary rounded-full"></div>
-                  <div className="absolute top-1 right-1 w-1 h-1 bg-primary rounded-full"></div>
-                  <div className="absolute -top-1 left-2 w-4 h-2 bg-blue-400 rounded-t transform -rotate-12"></div>
-                </div>
-              </div>
+            <div className="mx-auto">
+              <img
+                src="/lovable-uploads/924c767e-c699-40d3-a22c-f106977496dc.png"
+                alt=""
+                width={96}
+                height={96}
+                className="mx-auto object-contain"
+              />
             </div>
 
             <div>
