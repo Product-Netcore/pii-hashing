@@ -328,18 +328,18 @@ export function SettingsPage() {
 
       {/* PII Hashing Note Dialog */}
       <Dialog open={showPIINoteDialog} onOpenChange={setShowPIINoteDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="sr-only">PII Hashing Notes</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
+          <div className="text-center space-y-6">
             {/* Illustration */}
             <ConfirmationIllustration className="mx-auto" />
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
-              <div className="text-left space-y-3">
+              <div className="text-left space-y-2">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
@@ -356,7 +356,7 @@ export function SettingsPage() {
             </div>
           </div>
 
-          <DialogFooter className="gap-3 px-6 pb-6">
+          <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => setShowPIINoteDialog(false)}>
               Cancel
             </Button>
@@ -370,12 +370,12 @@ export function SettingsPage() {
 
       {/* PII Hashing Scope Dialog */}
       <Dialog open={showPIIScopeDialog} onOpenChange={setShowPIIScopeDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="sr-only">Select Enterprises and Feeds</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6 flex-1 flex flex-col px-6 pt-6">
+          <div className="text-center space-y-6">
             {/* Illustration */}
             <ConfirmationIllustration className="mx-auto" />
 
@@ -384,7 +384,7 @@ export function SettingsPage() {
             </div>
 
             {/* Enterprise and Feed selection */}
-            <div className="space-y-4 flex-1">
+            <div className="space-y-4">
               <div className="text-left">
                 <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                 <Popover>
@@ -483,7 +483,7 @@ export function SettingsPage() {
              </div>
            </div>
 
-          <DialogFooter className="gap-3 px-6 pb-6">
+           <DialogFooter className="gap-3">
             
             <Button variant="outline" onClick={() => setShowPIIScopeDialog(false)}>
               Cancel
@@ -499,12 +499,12 @@ export function SettingsPage() {
 
       {/* Content Storage Dialog */}
       <Dialog open={showContentDialog} onOpenChange={setShowContentDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="sr-only">Disable Message Content Storage</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
+          <div className="text-center space-y-6">
             {/* Illustration */}
             <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
               <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -514,7 +514,7 @@ export function SettingsPage() {
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
-              <div className="text-left space-y-3">
+              <div className="text-left space-y-2">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-sm text-muted-foreground">
@@ -531,7 +531,7 @@ export function SettingsPage() {
             </div>
 
             {/* Checkbox for all enterprises */}
-            <div className="flex items-start space-x-2 text-left w-full max-w-sm mx-auto">
+            <div className="flex items-start space-x-2 text-left">
               <Checkbox id="enable-all-content" checked={enableAllEnterprisesContent} onCheckedChange={checked => setEnableAllEnterprisesContent(checked as boolean)} />
               <label htmlFor="enable-all-content" className="text-sm text-foreground">
                 Content storage will be disabled on all the Enterprises on this panel
@@ -539,7 +539,7 @@ export function SettingsPage() {
             </div>
 
             {/* Conditional dropdowns */}
-            {!enableAllEnterprisesContent && <div className="space-y-4 w-full max-w-sm mx-auto">
+            {!enableAllEnterprisesContent && <div className="space-y-4">
                 <div className="text-left">
                   <label className="text-sm font-medium text-foreground mb-2 block">Select Enterprises:</label>
                   <Popover>
@@ -638,7 +638,7 @@ export function SettingsPage() {
               </div>}
           </div>
 
-          <DialogFooter className="gap-3 px-6 pb-6">
+          <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => setShowContentDialog(false)}>
               Cancel
             </Button>
@@ -655,12 +655,12 @@ export function SettingsPage() {
 
       {/* Authorization Dialog */}
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="sr-only">Verify & enable hashing</DialogTitle>
           </DialogHeader>
           
-          <div className="text-center space-y-6 flex-1 flex flex-col justify-center px-6">
+          <div className="text-center space-y-6">
             {/* Illustration */}
             <div className="mx-auto">
               <img
@@ -680,7 +680,7 @@ export function SettingsPage() {
             </div>
 
             {/* Password Input */}
-            <div className="text-left space-y-2 w-full max-w-sm mx-auto">
+            <div className="text-left space-y-2">
               <Label htmlFor="password" className="text-sm font-medium text-primary">
                 Password *
               </Label>
@@ -693,7 +693,7 @@ export function SettingsPage() {
             </div>
           </div>
 
-          <DialogFooter className="gap-3 px-6 pb-6">
+          <DialogFooter className="gap-3">
             <Button variant="outline" onClick={() => {
             setShowAuthDialog(false);
             setPassword("");
