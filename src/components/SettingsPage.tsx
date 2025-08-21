@@ -170,7 +170,7 @@ export function SettingsPage() {
                   <p className="text-sm text-muted-foreground mb-3">
                     {isPIIHashingEnabled ? 
                       (piiScope.mode === 'all' ? "PII Hashing is enabled for all Enterprises on the panel." : "PII Hashing is enabled for selected Enterprises and feeds.") 
-                      : "Enhanced protection of customer privacy with hashing customer's numbers."}
+                      : "Enhance protection of customer privacy with hashing customer's numbers."}
                   </p>
                   {isPIIHashingEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
