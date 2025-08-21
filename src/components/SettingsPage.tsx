@@ -328,7 +328,7 @@ export function SettingsPage() {
 
       {/* PII Hashing Note Dialog */}
       <Dialog open={showPIINoteDialog} onOpenChange={setShowPIINoteDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">PII Hashing Notes</DialogTitle>
           </DialogHeader>
@@ -370,7 +370,7 @@ export function SettingsPage() {
 
       {/* PII Hashing Scope Dialog */}
       <Dialog open={showPIIScopeDialog} onOpenChange={setShowPIIScopeDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Select Enterprises and Feeds</DialogTitle>
           </DialogHeader>
@@ -499,7 +499,7 @@ export function SettingsPage() {
 
       {/* Content Storage Dialog */}
       <Dialog open={showContentDialog} onOpenChange={setShowContentDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Disable Message Content Storage</DialogTitle>
           </DialogHeader>
@@ -655,7 +655,7 @@ export function SettingsPage() {
 
       {/* Authorization Dialog */}
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <DialogContent className="w-[480px] h-[600px] flex flex-col">
+        <DialogContent className="w-[480px] h-[520px] flex flex-col">
           <DialogHeader>
             <DialogTitle className="sr-only">Verify & enable hashing</DialogTitle>
           </DialogHeader>
