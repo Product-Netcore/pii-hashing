@@ -85,7 +85,7 @@ export function SettingsPage() {
   };
 
   return <div className="flex-1 overflow-auto">
-      <div className="px-10 py-8">
+      <div className="p-8">
         <div className="max-w-6xl">
           <h1 className="text-2xl font-semibold text-foreground mb-8">Settings</h1>
           
