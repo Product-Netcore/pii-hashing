@@ -724,7 +724,7 @@ export function SettingsPage() {
             setShowPassword(false);
             setCurrentAction(null);
           }}>
-              Verify and enable hashing
+              verify and enable hashing
             </Button>
           </DialogFooter>
         </DialogContent>
