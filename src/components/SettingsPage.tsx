@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
+import { ConfirmationIllustration } from "@/components/illustrations/Confirmation";
 
 const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION", "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS", "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT", "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE", "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT", "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION", "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED", "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT", "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE", "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED", "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT", "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY", "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE", "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED", "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT", "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE", "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED", "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED", "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED", "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION", "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED", "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST", "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED", "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY", "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"];
 const feedData = [{
@@ -332,11 +333,7 @@ export function SettingsPage() {
           
           <div className="text-center space-y-6">
             {/* Illustration */}
-            <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                <div className="w-8 h-8 bg-primary rounded opacity-80"></div>
-              </div>
-            </div>
+            <ConfirmationIllustration className="mx-auto" />
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Please note</h3>
@@ -631,11 +628,12 @@ export function SettingsPage() {
             setShowAuthDialog(false);
             if (currentAction === "pii") {
               setIsPIIHashingEnabled(true);
-              // Save the PII scope based on current selections
+              // Save the PII scope based on current selections - derive mode from actual selections
+              const isAllMode = selectedEnterprises.length === enterprises.length && selectedFeeds.length === feeds.length;
               setPiiScope({
-                mode: enableAllEnterprises ? 'all' : 'selected',
-                enterprises: enableAllEnterprises ? [...enterprises] : selectedEnterprises,
-                feeds: enableAllEnterprises ? [...feeds] : selectedFeeds
+                mode: isAllMode ? 'all' : 'selected',
+                enterprises: selectedEnterprises,
+                feeds: selectedFeeds
               });
             } else if (currentAction === "content") {
               setIsContentStorageEnabled(true);
