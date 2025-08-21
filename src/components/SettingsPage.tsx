@@ -221,7 +221,7 @@ export function SettingsPage() {
                               <PopoverTrigger asChild>
                                 <button 
                                   type="button"
-                                  className="text-xs hover:no-underline cursor-pointer"
+                                  className="text-xs font-semibold hover:no-underline cursor-pointer"
                                   style={{ color: '#143F93' }}
                                 >
                                   +{piiScope.feeds.length - 5} more
