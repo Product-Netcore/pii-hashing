@@ -204,9 +204,13 @@ export function SettingsPage() {
                           {piiScope.feeds.length > 5 && <Popover>
                               <PopoverTrigger asChild>
                                 <button className="inline-flex">
-                                  <Badge variant="secondary" className="text-xs cursor-pointer hover:bg-secondary/80">
+                                  <a 
+                                    href="#" 
+                                    className="text-xs underline hover:no-underline"
+                                    style={{ color: '#143F93' }}
+                                  >
                                     +{piiScope.feeds.length - 5} more
-                                  </Badge>
+                                  </a>
                                 </button>
                               </PopoverTrigger>
                               <PopoverContent className="w-96">
