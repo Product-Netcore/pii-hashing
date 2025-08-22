@@ -51,7 +51,7 @@ export function SettingsPage() {
     enterprises: [], 
     feeds: [] 
   });
-  const enterprises = ["Enterprise1", "Enterprise2", "Enterprise3"];
+  const enterprises = Array.from({ length: 50 }, (_, i) => `Enterprise${i + 1}`);
 
   const handleEnterpriseToggle = (enterprise: string) => {
     setSelectedEnterprises(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
