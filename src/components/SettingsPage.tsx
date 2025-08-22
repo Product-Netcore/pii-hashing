@@ -35,7 +35,7 @@ export function SettingsPage() {
   const [enableAllEnterprises, setEnableAllEnterprises] = useState(true);
   const [enableAllEnterprisesContent, setEnableAllEnterprisesContent] = useState(true);
   const [selectedEnterprises, setSelectedEnterprises] = useState<string[]>([]);
-  const [selectedFeeds, setSelectedFeeds] = useState<string[]>(feeds.slice(0, 100));
+  const [selectedFeeds, setSelectedFeeds] = useState<string[]>([]);
   const [selectedEnterprisesContent, setSelectedEnterprisesContent] = useState<string[]>([]);
   const [selectedFeedsContent, setSelectedFeedsContent] = useState<string[]>([]);
   const [password, setPassword] = useState("");
@@ -208,54 +208,64 @@ export function SettingsPage() {
                   </p>
                   {isPIIHashingEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
-                      {piiScope.mode === 'all' ? (
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline" className="text-xs">All enterprises</Badge>
-                          <Badge variant="outline" className="text-xs">All feeds</Badge>
-                        </div>
-                      ) : (
-                        <div className="flex flex-wrap gap-2">
-                          {piiScope.feeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
-                          {piiScope.feeds.length > 5 && <Popover>
-                              <PopoverTrigger asChild>
-                                <button 
-                                  type="button"
-                                  className="text-xs font-semibold hover:no-underline cursor-pointer"
-                                  style={{ color: '#143F93' }}
-                                >
-                                  +{piiScope.feeds.length - 5} more
-                                </button>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-96 z-50 bg-background border border-border shadow-md">
-                                <div className="space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <h4 className="text-sm font-medium">Selected Feeds</h4>
-                                    <Badge variant="secondary" className="text-xs">
-                                      {piiScope.feeds.length} total
-                                    </Badge>
-                                  </div>
-                                  
-                                  {piiScope.feeds.length > 10 && <div className="relative">
-                                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                      <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
-                                    </div>}
-                                  
-                                  <div className="max-h-60 overflow-y-auto">
-                                    <div className="flex flex-wrap gap-2">
-                                      {(feedSearchQuery ? piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())) : piiScope.feeds).map(feed => <Badge key={feed} variant="outline" className="text-xs">
-                                          {feed}
-                                        </Badge>)}
+                      <div className="flex flex-wrap gap-2">
+                        {piiScope.mode === 'all' ? (
+                          <>
+                            <Badge variant="outline" className="text-xs">All enterprises ({enterprises.length})</Badge>
+                            <Badge variant="outline" className="text-xs">All feeds ({feeds.length})</Badge>
+                          </>
+                        ) : (
+                          <>
+                            {piiScope.enterprises.slice(0, 3).map(enterprise => 
+                              <Badge key={enterprise} variant="outline" className="text-xs">{enterprise}</Badge>
+                            )}
+                            {piiScope.enterprises.length > 3 && 
+                              <Badge variant="outline" className="text-xs">+{piiScope.enterprises.length - 3} more enterprises</Badge>
+                            }
+                            {piiScope.feeds.slice(0, 5).map(feed => 
+                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
+                            )}
+                            {piiScope.feeds.length > 5 && <Popover>
+                                <PopoverTrigger asChild>
+                                  <button 
+                                    type="button"
+                                    className="text-xs font-semibold hover:no-underline cursor-pointer"
+                                    style={{ color: '#143F93' }}
+                                  >
+                                    +{piiScope.feeds.length - 5} more
+                                  </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-96 z-50 bg-background border border-border shadow-md">
+                                  <div className="space-y-3">
+                                    <div className="flex items-center justify-between">
+                                      <h4 className="text-sm font-medium">Selected Feeds</h4>
+                                      <Badge variant="secondary" className="text-xs">
+                                        {piiScope.feeds.length} total
+                                      </Badge>
                                     </div>
                                     
-                                    {feedSearchQuery && piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
-                                        No feeds found matching "{feedSearchQuery}"
+                                    {piiScope.feeds.length > 10 && <div className="relative">
+                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                        <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                                       </div>}
+                                    
+                                    <div className="max-h-60 overflow-y-auto">
+                                      <div className="flex flex-wrap gap-2">
+                                        {(feedSearchQuery ? piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())) : piiScope.feeds).map(feed => <Badge key={feed} variant="outline" className="text-xs">
+                                            {feed}
+                                          </Badge>)}
+                                      </div>
+                                      
+                                      {feedSearchQuery && piiScope.feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
+                                          No feeds found matching "{feedSearchQuery}"
+                                        </div>}
+                                    </div>
                                   </div>
-                                </div>
-                              </PopoverContent>
-                            </Popover>}
-                        </div>
-                      )}
+                                </PopoverContent>
+                              </Popover>}
+                          </>
+                        )}
+                      </div>
                     </div>}
                 </div>
                 <div className="flex gap-2 ml-4">
