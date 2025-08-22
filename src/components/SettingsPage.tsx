@@ -427,7 +427,7 @@ export function SettingsPage() {
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                  <PopoverContent className="w-80 p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
                       <div className="relative mb-2">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -444,8 +444,8 @@ export function SettingsPage() {
                           Select All
                         </label>
                       </div>
-                      <ScrollArea className="h-60">
-                        <div className="pr-2">
+                      <ScrollArea className="h-48 w-full">
+                        <div className="pr-3">
                           {enterprises.filter(enterprise => 
                             enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
                           ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
@@ -477,7 +477,7 @@ export function SettingsPage() {
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                  <PopoverContent className="w-80 p-0 z-50 bg-popover" align="start">
                     <div className="p-2">
                       <div className="relative mb-2">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -494,8 +494,8 @@ export function SettingsPage() {
                           Select All
                         </label>
                       </div>
-                      <ScrollArea className="h-60">
-                        <div className="pr-2">
+                      <ScrollArea className="h-48 w-full">
+                        <div className="pr-3">
                           {feeds.filter(feed => 
                             feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
                           ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
@@ -586,7 +586,7 @@ export function SettingsPage() {
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                    <PopoverContent className="w-80 p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         <div className="relative mb-2">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -603,8 +603,8 @@ export function SettingsPage() {
                             Select All
                           </label>
                         </div>
-                        <ScrollArea className="h-60">
-                          <div className="pr-2">
+                        <ScrollArea className="h-48 w-full">
+                          <div className="pr-3">
                             {enterprises.filter(enterprise => 
                               enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
                             ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
@@ -636,7 +636,7 @@ export function SettingsPage() {
                         <ChevronDown className="h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+                    <PopoverContent className="w-80 p-0 z-50 bg-popover" align="start">
                       <div className="p-2">
                         <div className="relative mb-2">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -653,8 +653,8 @@ export function SettingsPage() {
                             Select All
                           </label>
                         </div>
-                        <ScrollArea className="h-60">
-                          <div className="pr-2">
+                        <ScrollArea className="h-48 w-full">
+                          <div className="pr-3">
                             {feeds.filter(feed => 
                               feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
                             ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
