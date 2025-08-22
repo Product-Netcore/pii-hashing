@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
@@ -203,9 +204,7 @@ export function SettingsPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">PII Hashing-Mobile Number</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {isPIIHashingEnabled ? 
-                      (piiScope.mode === 'all' ? "PII Hashing is enabled for all Enterprises on the panel." : "PII Hashing is enabled for selected Enterprises and feeds.") 
-                      : "Enhance protection of customer privacy with hashing customer's numbers."}
+                    Enhance protection of customer privacy with hashing customer's numbers.
                   </p>
                   {isPIIHashingEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
@@ -445,23 +444,25 @@ export function SettingsPage() {
                           Select All
                         </label>
                       </div>
-                      <div className="max-h-60 overflow-y-auto">
-                        {enterprises.filter(enterprise => 
-                          enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
-                        ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
-                            <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
-                              {enterprise}
-                            </label>
-                          </div>)}
-                        {enterpriseSearchQuery && enterprises.filter(enterprise => 
-                          enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
-                        ).length === 0 && (
-                          <div className="text-center py-4 text-sm text-muted-foreground">
-                            No enterprises found matching "{enterpriseSearchQuery}"
-                          </div>
-                        )}
-                      </div>
+                      <ScrollArea className="h-60">
+                        <div className="pr-2">
+                          {enterprises.filter(enterprise => 
+                            enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
+                          ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                              <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
+                              <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
+                                {enterprise}
+                              </label>
+                            </div>)}
+                          {enterpriseSearchQuery && enterprises.filter(enterprise => 
+                            enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
+                          ).length === 0 && (
+                            <div className="text-center py-4 text-sm text-muted-foreground">
+                              No enterprises found matching "{enterpriseSearchQuery}"
+                            </div>
+                          )}
+                        </div>
+                      </ScrollArea>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -493,23 +494,25 @@ export function SettingsPage() {
                           Select All
                         </label>
                       </div>
-                      <div className="max-h-60 overflow-y-auto">
-                        {feeds.filter(feed => 
-                          feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                        ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                            <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
-                            <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
-                              {feed}
-                            </label>
-                          </div>)}
-                        {feedSearchQuery && feeds.filter(feed => 
-                          feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                        ).length === 0 && (
-                          <div className="text-center py-4 text-sm text-muted-foreground">
-                            No feeds found matching "{feedSearchQuery}"
-                          </div>
-                        )}
-                      </div>
+                      <ScrollArea className="h-60">
+                        <div className="pr-2">
+                          {feeds.filter(feed => 
+                            feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                          ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                              <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
+                              <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
+                                {feed}
+                              </label>
+                            </div>)}
+                          {feedSearchQuery && feeds.filter(feed => 
+                            feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
+                          ).length === 0 && (
+                            <div className="text-center py-4 text-sm text-muted-foreground">
+                              No feeds found matching "{feedSearchQuery}"
+                            </div>
+                          )}
+                        </div>
+                      </ScrollArea>
                     </div>
                   </PopoverContent>
                  </Popover>
@@ -600,23 +603,25 @@ export function SettingsPage() {
                             Select All
                           </label>
                         </div>
-                        <div className="max-h-60 overflow-y-auto">
-                          {enterprises.filter(enterprise => 
-                            enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
-                          ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                              <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
-                              <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
-                                {enterprise}
-                              </label>
-                            </div>)}
-                          {contentEnterpriseSearchQuery && enterprises.filter(enterprise => 
-                            enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
-                          ).length === 0 && (
-                            <div className="text-center py-4 text-sm text-muted-foreground">
-                              No enterprises found matching "{contentEnterpriseSearchQuery}"
-                            </div>
-                          )}
-                        </div>
+                        <ScrollArea className="h-60">
+                          <div className="pr-2">
+                            {enterprises.filter(enterprise => 
+                              enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
+                            ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                                <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
+                                <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
+                                  {enterprise}
+                                </label>
+                              </div>)}
+                            {contentEnterpriseSearchQuery && enterprises.filter(enterprise => 
+                              enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
+                            ).length === 0 && (
+                              <div className="text-center py-4 text-sm text-muted-foreground">
+                                No enterprises found matching "{contentEnterpriseSearchQuery}"
+                              </div>
+                            )}
+                          </div>
+                        </ScrollArea>
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -648,23 +653,25 @@ export function SettingsPage() {
                             Select All
                           </label>
                         </div>
-                        <div className="max-h-60 overflow-y-auto">
-                          {feeds.filter(feed => 
-                            feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                          ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
-                              <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
-                              <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
-                                {feed}
-                              </label>
-                            </div>)}
-                          {contentFeedSearchQuery && feeds.filter(feed => 
-                            feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                          ).length === 0 && (
-                            <div className="text-center py-4 text-sm text-muted-foreground">
-                              No feeds found matching "{contentFeedSearchQuery}"
-                            </div>
-                          )}
-                        </div>
+                        <ScrollArea className="h-60">
+                          <div className="pr-2">
+                            {feeds.filter(feed => 
+                              feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                            ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                                <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
+                                <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
+                                  {feed}
+                                </label>
+                              </div>)}
+                            {contentFeedSearchQuery && feeds.filter(feed => 
+                              feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
+                            ).length === 0 && (
+                              <div className="text-center py-4 text-sm text-muted-foreground">
+                                No feeds found matching "{contentFeedSearchQuery}"
+                              </div>
+                            )}
+                          </div>
+                        </ScrollArea>
                       </div>
                     </PopoverContent>
                   </Popover>
