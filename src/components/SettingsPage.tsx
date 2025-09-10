@@ -24,6 +24,7 @@ const feedData = [{
 }];
 
 export function SettingsPage() {
+  console.log('SettingsPage component rendering');
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
   const [selectedFeed, setSelectedFeed] = useState("All");
   const [showPIINoteDialog, setShowPIINoteDialog] = useState(false);
