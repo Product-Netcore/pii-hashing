@@ -287,10 +287,10 @@ export function SettingsPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {isContentStorageEnabled ? "Message content storage is disabled for all Enterprises on the panel." : "Enhanced protection of customer privacy with disabling storage of user wise message content."}
+                    Enhanced protection of customer privacy with disabling storage of user wise message content.
                   </p>
-                  {isContentStorageEnabled && !enableAllEnterprisesContent && <div className="mt-3">
-                      <h4 className="text-sm font-medium text-foreground mb-2">Disabled for:</h4>
+                  {isContentStorageEnabled && <div className="mt-3">
+                      <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedFeedsContent.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs bg-blue-500 text-white border-blue-500">{feed}</Badge>)}
                         {selectedFeedsContent.length > 5 && <Popover>
@@ -338,7 +338,7 @@ export function SettingsPage() {
                       EDIT
                     </Button>}
                   <Button size="sm" variant="outline" className={`min-w-[80px] ${isContentStorageEnabled ? 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'}`} onClick={() => isContentStorageEnabled ? setIsContentStorageEnabled(false) : setShowContentDialog(true)}>
-                    {isContentStorageEnabled ? "ENABLE" : "DISABLE"}
+                    {isContentStorageEnabled ? "DISABLE" : "ENABLE"}
                   </Button>
                 </div>
               </div>
