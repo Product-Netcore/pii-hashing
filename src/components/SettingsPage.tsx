@@ -507,7 +507,7 @@ export function SettingsPage() {
       <Dialog open={showContentDialog} onOpenChange={setShowContentDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="sr-only">Disable Message Content Storage</DialogTitle>
+            <DialogTitle className="sr-only">Enable Message Content Protection</DialogTitle>
           </DialogHeader>
           
           <div className="text-center space-y-6">
@@ -523,7 +523,7 @@ export function SettingsPage() {
               <div className="text-left space-y-2">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-sm text-muted-foreground"> Once this feature is enabled, message content will not be stored.</p>
+                  <p className="text-sm text-muted-foreground">Once this feature is enabled, message content will not be stored.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
@@ -538,7 +538,7 @@ export function SettingsPage() {
             <div className="flex items-start space-x-2 text-left">
               <Checkbox id="enable-all-content" checked={enableAllEnterprisesContent} onCheckedChange={checked => setEnableAllEnterprisesContent(checked as boolean)} />
               <label htmlFor="enable-all-content" className="text-sm text-foreground">
-                Content storage will be disabled on all the Enterprises on this panel
+                Content storage will be enabled on all the Enterprises on this panel
               </label>
             </div>
 
@@ -633,7 +633,7 @@ export function SettingsPage() {
             setCurrentAction("content");
             setShowAuthDialog(true);
           }}>
-              Disable
+              Enable
             </Button>
           </DialogFooter>
         </DialogContent>
