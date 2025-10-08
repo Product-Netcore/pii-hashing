@@ -523,9 +523,7 @@ export function SettingsPage() {
               <div className="text-left space-y-2">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-sm text-muted-foreground">
-                    Once content storage is disabled, message content will not be stored.
-                  </p>
+                  <p className="text-sm text-muted-foreground"> Once this feature is enabled, message content will not be stored.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
