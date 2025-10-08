@@ -261,9 +261,7 @@ export function SettingsPage() {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-foreground mb-2">Message content protection</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Enhanced protection of customer privacy with disabling storage of user wise message content.
-                  </p>
+                  <p className="text-sm text-muted-foreground mb-3">Enable to stop storing user-level message content</p>
                   {isContentStorageEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
