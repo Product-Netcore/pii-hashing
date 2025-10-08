@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit, Plus, ExternalLink, ChevronDown, Eye, EyeOff, Search } from "lucide-react";
 import { ConfirmationIllustration } from "@/components/illustrations/Confirmation";
-
 const feeds = ["PRODUCT2", "SMARTECH", "ALRT_Smart", "test1_prapp", "intncbizbond", "BILLING_FEED", "NOTIFICATION_FEED", "MARKETING_FEED", "SUPPORT_FEED", "ANALYTICS_FEED", "WEBHOOK_FEED", "PAYMENT_FEED", "USER_REGISTRATION", "PASSWORD_RESET", "ORDER_CONFIRMATION", "SHIPPING_UPDATE", "DELIVERY_NOTIFICATION", "PAYMENT_SUCCESS", "PAYMENT_FAILED", "SUBSCRIPTION_RENEWAL", "TRIAL_EXPIRED", "ACCOUNT_SUSPENDED", "SECURITY_ALERT", "LOGIN_VERIFICATION", "WELCOME_MESSAGE", "GOODBYE_MESSAGE", "PROMOTIONAL_OFFER", "DISCOUNT_CODE", "FLASH_SALE", "INVENTORY_LOW", "BACK_IN_STOCK", "PRICE_DROP", "WISHLIST_ALERT", "CART_ABANDONMENT", "REVIEW_REQUEST", "FEEDBACK_SURVEY", "EVENT_REMINDER", "APPOINTMENT_BOOKING", "APPOINTMENT_CONFIRMATION", "APPOINTMENT_REMINDER", "APPOINTMENT_CANCELLATION", "BOOKING_SUCCESS", "BOOKING_FAILED", "REFUND_PROCESSED", "RETURN_INITIATED", "EXCHANGE_REQUEST", "WARRANTY_EXPIRY", "SERVICE_REMINDER", "MAINTENANCE_ALERT", "SYSTEM_UPDATE", "FEATURE_ANNOUNCEMENT", "DOWNTIME_NOTICE", "PERFORMANCE_ALERT", "BACKUP_COMPLETE", "BACKUP_FAILED", "DATA_EXPORT", "DATA_IMPORT", "SYNC_COMPLETE", "SYNC_FAILED", "API_LIMIT_REACHED", "QUOTA_EXCEEDED", "USAGE_WARNING", "BILLING_CYCLE", "INVOICE_GENERATED", "PAYMENT_DUE", "LATE_PAYMENT", "CREDIT_ALERT", "BALANCE_LOW", "TRANSACTION_ALERT", "FRAUD_DETECTION", "SUSPICIOUS_ACTIVITY", "COMPLIANCE_ALERT", "AUDIT_REMINDER", "REPORT_READY", "EXPORT_COMPLETE", "IMPORT_COMPLETE", "BATCH_PROCESSED", "QUEUE_PROCESSED", "JOB_COMPLETE", "JOB_FAILED", "TASK_ASSIGNED", "TASK_COMPLETED", "PROJECT_UPDATE", "MILESTONE_REACHED", "DEADLINE_REMINDER", "OVERDUE_NOTICE", "PRIORITY_ALERT", "ESCALATION_NOTICE", "APPROVAL_REQUEST", "APPROVAL_GRANTED", "APPROVAL_DENIED", "WORKFLOW_COMPLETE", "STATUS_CHANGE", "PROFILE_UPDATE", "SETTINGS_CHANGED", "PREFERENCES_SAVED", "NOTIFICATION_ENABLED", "NOTIFICATION_DISABLED", "SUBSCRIPTION_CREATED", "SUBSCRIPTION_UPDATED", "SUBSCRIPTION_CANCELLED", "PLAN_UPGRADE", "PLAN_DOWNGRADE", "FEATURE_ENABLED", "FEATURE_DISABLED", "ACCESS_GRANTED", "ACCESS_REVOKED", "PERMISSION_CHANGED", "ROLE_ASSIGNED", "ROLE_REMOVED", "TEAM_INVITATION", "TEAM_JOINED", "TEAM_LEFT", "COLLABORATION_REQUEST", "SHARED_DOCUMENT", "COMMENT_ADDED", "MENTION_NOTIFICATION", "LIKE_NOTIFICATION", "FOLLOW_REQUEST", "FOLLOWER_UPDATE", "CONNECTION_REQUEST", "MESSAGE_RECEIVED", "CHAT_INVITATION", "VIDEO_CALL", "VOICE_CALL", "MEETING_SCHEDULED", "MEETING_REMINDER", "MEETING_STARTED", "MEETING_ENDED", "RECORDING_AVAILABLE", "TRANSCRIPT_READY", "FILE_UPLOADED", "FILE_SHARED", "FILE_DOWNLOADED", "FOLDER_CREATED", "STORAGE_FULL", "SYNC_ERROR"];
 const feedData = [{
   feeds: ["PRODUCT2", "ALRT_Smar...", "SMARTECH...", "test1_prapp...", "SMARTECH...", "Smartech_p...", "+95 more"],
@@ -22,7 +21,6 @@ const feedData = [{
   feeds: ["intncbizbond"],
   peId: "22222222222222222"
 }];
-
 export function SettingsPage() {
   console.log('SettingsPage component rendering');
   const [selectedEnterprise, setSelectedEnterprise] = useState("All");
@@ -47,45 +45,42 @@ export function SettingsPage() {
   const [enterpriseSearchQuery, setEnterpriseSearchQuery] = useState("");
   const [contentEnterpriseSearchQuery, setContentEnterpriseSearchQuery] = useState("");
   // Single source of truth for PII scope
-  const [piiScope, setPiiScope] = useState<{ mode: 'all' | 'selected'; enterprises: string[]; feeds: string[] }>({ 
-    mode: 'all', 
-    enterprises: [], 
-    feeds: [] 
+  const [piiScope, setPiiScope] = useState<{
+    mode: 'all' | 'selected';
+    enterprises: string[];
+    feeds: string[];
+  }>({
+    mode: 'all',
+    enterprises: [],
+    feeds: []
   });
-  const enterprises = Array.from({ length: 50 }, (_, i) => `Enterprise${i + 1}`);
-
+  const enterprises = Array.from({
+    length: 50
+  }, (_, i) => `Enterprise${i + 1}`);
   const handleEnterpriseToggle = (enterprise: string) => {
     setSelectedEnterprises(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
-
   const handleFeedToggle = (feed: string) => {
     setSelectedFeeds(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
-
   const handleEnterpriseToggleContent = (enterprise: string) => {
     setSelectedEnterprisesContent(prev => prev.includes(enterprise) ? prev.filter(e => e !== enterprise) : [...prev, enterprise]);
   };
-
   const handleFeedToggleContent = (feed: string) => {
     setSelectedFeedsContent(prev => prev.includes(feed) ? prev.filter(f => f !== feed) : [...prev, feed]);
   };
-
   const handleSelectAllEnterprises = (checked: boolean) => {
     setSelectedEnterprises(checked ? [...enterprises] : []);
   };
-
   const handleSelectAllFeeds = (checked: boolean) => {
     setSelectedFeeds(checked ? [...feeds] : []);
   };
-
   const handleSelectAllEnterprisesContent = (checked: boolean) => {
     setSelectedEnterprisesContent(checked ? [...enterprises] : []);
   };
-
   const handleSelectAllFeedsContent = (checked: boolean) => {
     setSelectedFeedsContent(checked ? [...feeds] : []);
   };
-
   return <div className="flex-1 overflow-auto">
       <div className="p-8">
         <div className="max-w-6xl">
@@ -143,15 +138,12 @@ export function SettingsPage() {
                 {feedData.map((row, index) => <div key={index} className="grid grid-cols-2 gap-4 p-4">
                   <div className="flex flex-wrap gap-2">
                     {row.feeds.map((feed, feedIndex) => {
-                      if (feed.startsWith("+") && feed.includes("more")) {
-                        return (
-                          <Popover key={feedIndex}>
+                    if (feed.startsWith("+") && feed.includes("more")) {
+                      return <Popover key={feedIndex}>
                             <PopoverTrigger asChild>
-                              <button 
-                                type="button"
-                                className="text-xs hover:no-underline cursor-pointer"
-                                style={{ color: '#143F93' }}
-                              >
+                              <button type="button" className="text-xs hover:no-underline cursor-pointer" style={{
+                            color: '#143F93'
+                          }}>
                                 {feed}
                               </button>
                             </PopoverTrigger>
@@ -160,23 +152,18 @@ export function SettingsPage() {
                                 <h4 className="text-sm font-medium">Additional feeds</h4>
                                 <div className="max-h-48 overflow-y-auto">
                                   <div className="flex flex-wrap gap-2">
-                                    {feeds.slice(6, 24).map(f => (
-                                      <Badge key={f} variant="outline" className="text-xs">{f}</Badge>
-                                    ))}
+                                    {feeds.slice(6, 24).map(f => <Badge key={f} variant="outline" className="text-xs">{f}</Badge>)}
                                   </div>
                                   <div className="text-xs text-muted-foreground mt-2">+95 others not shown</div>
                                 </div>
                               </div>
                             </PopoverContent>
-                          </Popover>
-                        );
-                      }
-                      return (
-                        <Badge key={feedIndex} variant="pill" className="text-xs">
+                          </Popover>;
+                    }
+                    return <Badge key={feedIndex} variant="pill" className="text-xs">
                           {feed}
-                        </Badge>
-                      );
-                    })}
+                        </Badge>;
+                  })}
                   </div>
                     <div className="text-sm text-foreground font-mono">
                       {row.peId}
@@ -210,29 +197,18 @@ export function SettingsPage() {
                   {isPIIHashingEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {piiScope.mode === 'all' ? (
-                          <>
+                        {piiScope.mode === 'all' ? <>
                             <Badge variant="outline" className="text-xs">All enterprises ({enterprises.length})</Badge>
                             <Badge variant="outline" className="text-xs">All feeds ({feeds.length})</Badge>
-                          </>
-                        ) : (
-                          <>
-                            {piiScope.enterprises.slice(0, 3).map(enterprise => 
-                              <Badge key={enterprise} variant="outline" className="text-xs">{enterprise}</Badge>
-                            )}
-                            {piiScope.enterprises.length > 3 && 
-                              <Badge variant="outline" className="text-xs">+{piiScope.enterprises.length - 3} more enterprises</Badge>
-                            }
-                            {piiScope.feeds.slice(0, 5).map(feed => 
-                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                            )}
+                          </> : <>
+                            {piiScope.enterprises.slice(0, 3).map(enterprise => <Badge key={enterprise} variant="outline" className="text-xs">{enterprise}</Badge>)}
+                            {piiScope.enterprises.length > 3 && <Badge variant="outline" className="text-xs">+{piiScope.enterprises.length - 3} more enterprises</Badge>}
+                            {piiScope.feeds.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
                             {piiScope.feeds.length > 5 && <Popover>
                                 <PopoverTrigger asChild>
-                                  <button 
-                                    type="button"
-                                    className="text-xs font-semibold hover:no-underline cursor-pointer"
-                                    style={{ color: '#143F93' }}
-                                  >
+                                  <button type="button" className="text-xs font-semibold hover:no-underline cursor-pointer" style={{
+                              color: '#143F93'
+                            }}>
                                     +{piiScope.feeds.length - 5} more
                                   </button>
                                 </PopoverTrigger>
@@ -264,8 +240,7 @@ export function SettingsPage() {
                                   </div>
                                 </PopoverContent>
                               </Popover>}
-                          </>
-                        )}
+                          </>}
                       </div>
                     </div>}
                 </div>
@@ -285,36 +260,25 @@ export function SettingsPage() {
             <div className="p-6 border border-border rounded-lg">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-lg font-medium text-foreground mb-2">Message content storage</h3>
+                  <h3 className="text-lg font-medium text-foreground mb-2">Message content protection</h3>
                   <p className="text-sm text-muted-foreground mb-3">
                     Enhanced protection of customer privacy with disabling storage of user wise message content.
                   </p>
                   {isContentStorageEnabled && <div className="mt-3">
                       <h4 className="text-sm font-medium text-foreground mb-2">Enabled for:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {enableAllEnterprisesContent ? (
-                          <>
+                        {enableAllEnterprisesContent ? <>
                             <Badge variant="outline" className="text-xs">All enterprises ({enterprises.length})</Badge>
                             <Badge variant="outline" className="text-xs">All feeds ({feeds.length})</Badge>
-                          </>
-                        ) : (
-                          <>
-                            {selectedEnterprisesContent.slice(0, 3).map(enterprise => 
-                              <Badge key={enterprise} variant="outline" className="text-xs">{enterprise}</Badge>
-                            )}
-                            {selectedEnterprisesContent.length > 3 && 
-                              <Badge variant="outline" className="text-xs">+{selectedEnterprisesContent.length - 3} more enterprises</Badge>
-                            }
-                            {selectedFeedsContent.slice(0, 5).map(feed => 
-                              <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>
-                            )}
+                          </> : <>
+                            {selectedEnterprisesContent.slice(0, 3).map(enterprise => <Badge key={enterprise} variant="outline" className="text-xs">{enterprise}</Badge>)}
+                            {selectedEnterprisesContent.length > 3 && <Badge variant="outline" className="text-xs">+{selectedEnterprisesContent.length - 3} more enterprises</Badge>}
+                            {selectedFeedsContent.slice(0, 5).map(feed => <Badge key={feed} variant="outline" className="text-xs">{feed}</Badge>)}
                             {selectedFeedsContent.length > 5 && <Popover>
                                 <PopoverTrigger asChild>
-                                  <button 
-                                    type="button"
-                                    className="text-xs font-semibold hover:no-underline cursor-pointer"
-                                    style={{ color: '#143F93' }}
-                                  >
+                                  <button type="button" className="text-xs font-semibold hover:no-underline cursor-pointer" style={{
+                              color: '#143F93'
+                            }}>
                                     +{selectedFeedsContent.length - 5} more
                                   </button>
                                 </PopoverTrigger>
@@ -346,8 +310,7 @@ export function SettingsPage() {
                                   </div>
                                 </PopoverContent>
                               </Popover>}
-                          </>
-                        )}
+                          </>}
                       </div>
                     </div>}
                 </div>
@@ -461,12 +424,7 @@ export function SettingsPage() {
                     <div className="p-2">
                       <div className="relative mb-2">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="Search enterprises..."
-                          value={enterpriseSearchQuery}
-                          onChange={(e) => setEnterpriseSearchQuery(e.target.value)}
-                          className="pl-10 h-8 text-sm"
-                        />
+                        <Input placeholder="Search enterprises..." value={enterpriseSearchQuery} onChange={e => setEnterpriseSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                       </div>
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                         <Checkbox id="select-all-enterprises" checked={selectedEnterprises.length === enterprises.length} onCheckedChange={handleSelectAllEnterprises} />
@@ -476,21 +434,15 @@ export function SettingsPage() {
                       </div>
                       <ScrollArea className="h-48 w-full">
                         <div className="pr-3">
-                          {enterprises.filter(enterprise => 
-                            enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
-                          ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                          {enterprises.filter(enterprise => enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                               <Checkbox id={`enterprise-${enterprise}`} checked={selectedEnterprises.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggle(enterprise)} />
                               <label htmlFor={`enterprise-${enterprise}`} className="text-sm cursor-pointer flex-1">
                                 {enterprise}
                               </label>
                             </div>)}
-                          {enterpriseSearchQuery && enterprises.filter(enterprise => 
-                            enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())
-                          ).length === 0 && (
-                            <div className="text-center py-4 text-sm text-muted-foreground">
+                          {enterpriseSearchQuery && enterprises.filter(enterprise => enterprise.toLowerCase().includes(enterpriseSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                               No enterprises found matching "{enterpriseSearchQuery}"
-                            </div>
-                          )}
+                            </div>}
                         </div>
                       </ScrollArea>
                     </div>
@@ -511,12 +463,7 @@ export function SettingsPage() {
                     <div className="p-2">
                       <div className="relative mb-2">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="Search feeds..."
-                          value={feedSearchQuery}
-                          onChange={(e) => setFeedSearchQuery(e.target.value)}
-                          className="pl-10 h-8 text-sm"
-                        />
+                        <Input placeholder="Search feeds..." value={feedSearchQuery} onChange={e => setFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                       </div>
                       <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                         <Checkbox id="select-all-feeds" checked={selectedFeeds.length === feeds.length} onCheckedChange={handleSelectAllFeeds} />
@@ -526,21 +473,15 @@ export function SettingsPage() {
                       </div>
                       <ScrollArea className="h-48 w-full">
                         <div className="pr-3">
-                          {feeds.filter(feed => 
-                            feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                          ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                          {feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                               <Checkbox id={`feed-${feed}`} checked={selectedFeeds.includes(feed)} onCheckedChange={() => handleFeedToggle(feed)} />
                               <label htmlFor={`feed-${feed}`} className="text-sm cursor-pointer flex-1">
                                 {feed}
                               </label>
                             </div>)}
-                          {feedSearchQuery && feeds.filter(feed => 
-                            feed.toLowerCase().includes(feedSearchQuery.toLowerCase())
-                          ).length === 0 && (
-                            <div className="text-center py-4 text-sm text-muted-foreground">
+                          {feedSearchQuery && feeds.filter(feed => feed.toLowerCase().includes(feedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                               No feeds found matching "{feedSearchQuery}"
-                            </div>
-                          )}
+                            </div>}
                         </div>
                       </ScrollArea>
                     </div>
@@ -620,12 +561,7 @@ export function SettingsPage() {
                       <div className="p-2">
                         <div className="relative mb-2">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            placeholder="Search enterprises..."
-                            value={contentEnterpriseSearchQuery}
-                            onChange={(e) => setContentEnterpriseSearchQuery(e.target.value)}
-                            className="pl-10 h-8 text-sm"
-                          />
+                          <Input placeholder="Search enterprises..." value={contentEnterpriseSearchQuery} onChange={e => setContentEnterpriseSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                         </div>
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                           <Checkbox id="select-all-enterprises-content" checked={selectedEnterprisesContent.length === enterprises.length} onCheckedChange={handleSelectAllEnterprisesContent} />
@@ -635,21 +571,15 @@ export function SettingsPage() {
                         </div>
                         <ScrollArea className="h-48 w-full">
                           <div className="pr-3">
-                            {enterprises.filter(enterprise => 
-                              enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
-                            ).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            {enterprises.filter(enterprise => enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())).map(enterprise => <div key={enterprise} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                                 <Checkbox id={`enterprise-content-${enterprise}`} checked={selectedEnterprisesContent.includes(enterprise)} onCheckedChange={() => handleEnterpriseToggleContent(enterprise)} />
                                 <label htmlFor={`enterprise-content-${enterprise}`} className="text-sm cursor-pointer flex-1">
                                   {enterprise}
                                 </label>
                               </div>)}
-                            {contentEnterpriseSearchQuery && enterprises.filter(enterprise => 
-                              enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())
-                            ).length === 0 && (
-                              <div className="text-center py-4 text-sm text-muted-foreground">
+                            {contentEnterpriseSearchQuery && enterprises.filter(enterprise => enterprise.toLowerCase().includes(contentEnterpriseSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                                 No enterprises found matching "{contentEnterpriseSearchQuery}"
-                              </div>
-                            )}
+                              </div>}
                           </div>
                         </ScrollArea>
                       </div>
@@ -670,12 +600,7 @@ export function SettingsPage() {
                       <div className="p-2">
                         <div className="relative mb-2">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            placeholder="Search feeds..."
-                            value={contentFeedSearchQuery}
-                            onChange={(e) => setContentFeedSearchQuery(e.target.value)}
-                            className="pl-10 h-8 text-sm"
-                          />
+                          <Input placeholder="Search feeds..." value={contentFeedSearchQuery} onChange={e => setContentFeedSearchQuery(e.target.value)} className="pl-10 h-8 text-sm" />
                         </div>
                         <div className="flex items-center space-x-2 p-2 border-b border-border mb-1">
                           <Checkbox id="select-all-feeds-content" checked={selectedFeedsContent.length === feeds.length} onCheckedChange={handleSelectAllFeedsContent} />
@@ -685,21 +610,15 @@ export function SettingsPage() {
                         </div>
                         <ScrollArea className="h-48 w-full">
                           <div className="pr-3">
-                            {feeds.filter(feed => 
-                              feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                            ).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
+                            {feeds.filter(feed => feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())).map(feed => <div key={feed} className="flex items-center space-x-2 p-2 hover:bg-accent rounded">
                                 <Checkbox id={`feed-content-${feed}`} checked={selectedFeedsContent.includes(feed)} onCheckedChange={() => handleFeedToggleContent(feed)} />
                                 <label htmlFor={`feed-content-${feed}`} className="text-sm cursor-pointer flex-1">
                                   {feed}
                                 </label>
                               </div>)}
-                            {contentFeedSearchQuery && feeds.filter(feed => 
-                              feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())
-                            ).length === 0 && (
-                              <div className="text-center py-4 text-sm text-muted-foreground">
+                            {contentFeedSearchQuery && feeds.filter(feed => feed.toLowerCase().includes(contentFeedSearchQuery.toLowerCase())).length === 0 && <div className="text-center py-4 text-sm text-muted-foreground">
                                 No feeds found matching "{contentFeedSearchQuery}"
-                              </div>
-                            )}
+                              </div>}
                           </div>
                         </ScrollArea>
                       </div>
@@ -734,13 +653,7 @@ export function SettingsPage() {
           <div className="text-center space-y-6">
             {/* Illustration */}
             <div className="mx-auto">
-              <img
-                src="/lovable-uploads/924c767e-c699-40d3-a22c-f106977496dc.png"
-                alt=""
-                width={244}
-                height={190}
-                className="mx-auto object-contain"
-              />
+              <img src="/lovable-uploads/924c767e-c699-40d3-a22c-f106977496dc.png" alt="" width={244} height={190} className="mx-auto object-contain" />
             </div>
 
             <div>
