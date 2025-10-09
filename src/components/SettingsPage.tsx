@@ -535,7 +535,12 @@ export function SettingsPage() {
             </div>
 
             {/* Checkbox for all enterprises */}
-            
+            <div className="flex items-start space-x-2 text-left">
+              <Checkbox id="enable-all-content" checked={enableAllEnterprisesContent} onCheckedChange={checked => setEnableAllEnterprisesContent(checked as boolean)} />
+              <label htmlFor="enable-all-content" className="text-sm text-foreground">
+                Content storage will be enabled on all the Enterprises on this panel
+              </label>
+            </div>
 
             {/* Conditional dropdowns */}
             {!enableAllEnterprisesContent && <div className="space-y-4">
