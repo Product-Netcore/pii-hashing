@@ -654,9 +654,7 @@ export function SettingsPage() {
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4">Verify & enable hashing</h3>
-              <p className="text-sm text-muted-foreground mb-6">
-                To confirm please, verify your account. Hashing will be applied to selected enterprises and feed IDs on this panel.
-              </p>
+              <p className="text-sm text-muted-foreground mb-6">To confirm please, verify your account. Message content will not be stored for selected feed IDs on this panel.</p>
             </div>
 
             {/* Password Input */}
@@ -698,9 +696,7 @@ export function SettingsPage() {
             setPassword("");
             setShowPassword(false);
             setCurrentAction(null);
-          }}>
-              Verify and enable hashing
-            </Button>
+          }}>Enable</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
